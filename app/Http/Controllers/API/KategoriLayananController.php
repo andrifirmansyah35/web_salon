@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Http\Controllers\API;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\kategori_layanan;
+use App\Models\layanan;
+
+class KategoriLayananController extends Controller
+{
+    public function index()
+    {
+        return response()->json([
+            'message' => 'success',
+            'kategori_layanan' => kategori_layanan::all()
+        ]);
+    }
+
+    public function kategori_layanan_layanan_all(Request $request)
+    {
+        $kategori_layanan = kategori_layanan::where('slug', $request->slug)->first();
+
+        $layanan = layanan::where('kategori_layanan_id', $kategori_layanan->id)->get();
+
+        return response()->json([
+            'message' => 'success',
+            'kategori_layanan' => $kategori_layanan->nama,
+            'layanan_all' => $layanan
+        ]);
+        // return $request;
+    }
+}
