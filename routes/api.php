@@ -48,7 +48,7 @@ Route::middleware(['middleware' => 'auth:sanctum'])->group(function () {
 
     // membuat api untuk keranjang layanan
     Route::post('/keranjang_layanan_tambah', [KeranjangLayananController::class, 'keranjang_layanan_tambah']);
-    //membuat api untuk keranjang operasi
+    Route::post('/keranjang_layanan_user', [KeranjangLayananController::class, 'keranjang_layanan']);  //dalam pengerjaan
     // membuat api untuk transaksi
 
 });
