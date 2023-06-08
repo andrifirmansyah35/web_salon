@@ -17,7 +17,7 @@ class CreateKeranjangLayanansTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('layanan_id');
-            $table->string('status');
+            $table->boolean('status');
             $table->timestamps();
         });
     }

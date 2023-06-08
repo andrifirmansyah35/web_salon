@@ -13,7 +13,7 @@ class layanan extends Model
 
     protected $table = 'layanan';
     protected $guarded = ['id'];
-    
+
     public function sluggable(): array
     {
         return [
@@ -30,6 +30,6 @@ class layanan extends Model
 
     public function kategori_layanan()
     {
-        return $this->belongsTo(kategori_layanan::class,'kategori_layanan_id');
+        return $this->belongsTo(kategori_layanan::class, 'kategori_layanan_id');
     }
 }

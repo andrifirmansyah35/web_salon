@@ -6,6 +6,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\KategoriLayananController;
 use App\Http\Controllers\API\LayananController;
 use App\Http\Controllers\API\JadwalOperasiController;
+use App\Http\Controllers\API\KeranjangLayananController;
 // use App\
 
 
@@ -46,6 +47,7 @@ Route::middleware(['middleware' => 'auth:sanctum'])->group(function () {
     Route::post('/cari_jadwal_operasi', [JadwalOperasiController::class, 'cari_jadwal']);
 
     // membuat api untuk keranjang layanan
+    Route::post('/keranjang_layanan_tambah', [KeranjangLayananController::class, 'keranjang_layanan_tambah']);
     //membuat api untuk keranjang operasi
     // membuat api untuk transaksi
 

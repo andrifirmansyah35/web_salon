@@ -15,7 +15,8 @@ class skema_operasi extends Model
     protected $table = 'skema_operasi';
 
 
-    public function kategori_operasi(){
+    public function kategori_operasi()
+    {
         return $this->belongTo(kategori_operasi::class);
     }
 }
