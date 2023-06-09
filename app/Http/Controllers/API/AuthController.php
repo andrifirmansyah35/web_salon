@@ -10,23 +10,24 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function login(Request $request){
-        $user = User::where('email',$request->email)->first();
+    public function login(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
 
-        if(!$user || !Hash::check($request->password, $user->password)){
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
                 'message' => 'UNAUTHORIZEDD'
-            ],401);
+            ], 401);
         }
 
-        if($user->level != 'member'){
+        if ($user->level != 'member') {
             return response()->json([
                 'message' => 'akun tidak dapat digunakan pada aplikasi mobile'
-            ],401);
+            ], 401);
         }
 
         $token = $user->createToken('token')->plainTextToken;
-        
+
         return response()->json([
             'message' => 'success',
             'user' => $user,
@@ -34,7 +35,8 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         $user = $request->user();
         $user->currentAccessToken()->delete();
 
@@ -42,5 +44,40 @@ class AuthController extends Controller
             'message' => 'Berhasil Logout',
             'nama' => $user->name
         ]);
+    }
+
+    public function password_baru(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+
+        // $credentials = $request->validate([
+        //     'email' => ['required', 'email'],
+        //     'password' => ['required'],
+        // ]);
+
+
+        if ($request->password_baru && $user != []) {
+            $password_baru_hash = Hash::make($request->password_baru);
+
+            User::whereId($user->id)->update(['password' => $password_baru_hash]);
+
+            return response()->json([
+                'message' => 'Berhasil Menganti Passsword',
+            ]);
+            // return response()->json([
+            //     "password_baru" => $request->password_baru,
+            //     "password_hash" => $password_baru_hash
+            // ]);
+        }
+
+        return response()->json([
+            'message' => 'failed',
+            'message_2' => 'gagal memperbaharui password'
+        ]);
+
+        //     return response()->json([
+        //         'message' => 'failed',
+        //         'message_2' => 'fungsi mengubah password user'
+        //     ]);
     }
 }

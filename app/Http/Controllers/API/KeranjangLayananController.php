@@ -45,9 +45,11 @@ class KeranjangLayananController extends Controller
     {
         $user = User::where('email', $request->email_user)->first();
         $keranjang_layanan_user = keranjang_layanan::where('user_id', $user->id)->get();
+        $keranjang_layanan_user_buka = keranjang_layanan::where([['user_id', $user->id], ['status', true]])->get();
+        $keranjang_layanan_user_tutup = keranjang_layanan::where([['user_id', $user->id], ['status', false]])->get();
 
         // mengubah data id layanan menjadi layanan
-        $sangar = $keranjang_layanan_user->map(function ($keranjang, $key) {
+        $keranjang_layanan_user_2 = $keranjang_layanan_user->map(function ($keranjang, $key) {
             return [
                 'id_keranjang_layanan' => $keranjang->id,
                 'status' => $keranjang->status,
@@ -55,9 +57,28 @@ class KeranjangLayananController extends Controller
             ];
         });
 
+        $keranjang_layanan_user_buka_2 = $keranjang_layanan_user_buka->map(function ($keranjang, $key) {
+            return [
+                'id_keranjang_layanan' => $keranjang->id,
+                'status' => $keranjang->status,
+                'layanan' => layanan::where('id', $keranjang->layanan_id)->first()->nama
+            ];
+        });
+
+        $keranjang_layanan_user_tutup_2 = $keranjang_layanan_user_tutup->map(function ($keranjang, $key) {
+            return [
+                'id_keranjang_layanan' => $keranjang->id,
+                'status' => $keranjang->status,
+                'layanan' => layanan::where('id', $keranjang->layanan_id)->first()->nama
+            ];
+        });
+
+
         return response()->json([
             'data_user' => $user,
-            "data_keranjang_layanan" => $sangar
+            'data keranjang' => $keranjang_layanan_user_2,
+            "data_keranjang_layanan_open" => $keranjang_layanan_user_buka,
+            "data_keranjang_close" => $keranjang_layanan_user_tutup
         ]);
     }
 }
