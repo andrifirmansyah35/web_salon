@@ -4,7 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\jadwal_operasi;
+use App\Models\keranjang_operasi;
 use App\Models\operasi;
+use App\Models\user;
 use Illuminate\Http\Request;
 
 
@@ -27,5 +29,32 @@ class JadwalOperasiController extends Controller
             'tanggal_operasi' => $tanggal_operasi,
             'operasional' => $operasi
         ]);
+    }
+
+    public function keranjang_operasi_tambah(Request $request)
+    {
+        // diasumsikan data yang dikirimkan adalah data operasi sudah ada dalam table(tidak perlu cek)
+        $user = User::where('email', $request->email)->first();
+        $user_keranjang_operasi_cek = keranjang_operasi::where([['user_id', $user->id], ['operasi_id', $request->operasi_id]])->first();
+
+        // return $user_keranjang_operasi_cek;
+
+        if ($user_keranjang_operasi_cek != []) {
+            return response()->json([
+                'messsage' => "failed",
+                "message_2" => "jadwal sudah ada didalam keranjang anda"
+            ]);
+        }
+
+        keranjang_operasi::create(['user_id' => $user->id, 'operasi_id' => $request->operasi_id]);
+
+        return response()->json([
+            'messsage' => "success",
+            "message_2" => "berhasil menambahkan "
+        ]);
+
+
+        // cek apakah sudah ada operasi didalam keranjang user
+
     }
 }

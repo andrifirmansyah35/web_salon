@@ -50,12 +50,6 @@ class AuthController extends Controller
     {
         $user = User::where('email', $request->email)->first();
 
-        // $credentials = $request->validate([
-        //     'email' => ['required', 'email'],
-        //     'password' => ['required'],
-        // ]);
-
-
         if ($request->password_baru && $user != []) {
             $password_baru_hash = Hash::make($request->password_baru);
 
@@ -64,20 +58,11 @@ class AuthController extends Controller
             return response()->json([
                 'message' => 'Berhasil Menganti Passsword',
             ]);
-            // return response()->json([
-            //     "password_baru" => $request->password_baru,
-            //     "password_hash" => $password_baru_hash
-            // ]);
         }
 
         return response()->json([
             'message' => 'failed',
             'message_2' => 'gagal memperbaharui password'
         ]);
-
-        //     return response()->json([
-        //         'message' => 'failed',
-        //         'message_2' => 'fungsi mengubah password user'
-        //     ]);
     }
 }
