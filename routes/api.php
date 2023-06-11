@@ -47,7 +47,10 @@ Route::middleware(['middleware' => 'auth:sanctum'])->group(function () {
 
     // api operasi -----------------------------
     Route::post('/cari-jadwal-operasi', [JadwalOperasiController::class, 'cari_jadwal']);
-    Route::post('/keranjang-operasi-tambah', [JadwalOperasiController::class, 'keranjang_operasi_tambah']);    //on progress
+    Route::post('/keranjang-operasi-tambah', [JadwalOperasiController::class, 'keranjang_operasi_tambah']);
+    Route::post('/keranjang-operasi-user', [JadwalOperasiController::class, 'keranjang_operasi']);
+    Route::post('/keranjang-operasi-terblokir-hapus', [JadwalOperasiController::class, 'keranjang_operasi_hapus_terblokir']);   //belm di cek
+    Route::post('/keranjang-operasi-hapus', [JadwalOperasiController::class, 'keranjang_operasi_hapus']);
 
     // membuat api untuk keranjang layanan---------------------------------------------------------
     Route::post('/keranjang-layanan-tambah', [KeranjangLayananController::class, 'keranjang_layanan_tambah']);

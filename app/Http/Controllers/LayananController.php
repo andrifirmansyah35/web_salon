@@ -12,20 +12,19 @@ class LayananController extends Controller
 
     public function index()
     {
-            // return layanan::all();
-            return view('layanan.index',[
-                'title' => 'Layanan',
-                'layanan' => layanan::all()
-            ]);
-        
+        // return layanan::all();
+        return view('layanan.index', [
+            'title' => 'Layanan',
+            'layanan' => layanan::all()
+        ]);
     }
 
 
     public function create()
     {
-        return view('layanan.create',[
-        'title'=>'Tambah Data Layanan',
-        'kategori_layanan_all' => kategori_layanan::all()
+        return view('layanan.create', [
+            'title' => 'Tambah Data Layanan',
+            'kategori_layanan_all' => kategori_layanan::all()
         ]);
     }
 
@@ -42,22 +41,22 @@ class LayananController extends Controller
         $validatedData['status'] = true;
         layanan::create($validatedData);
 
-        return redirect('/layanan')->with('success','Berhasil menambahkan data layanan baru');
+        return redirect('/layanan')->with('success', 'Berhasil menambahkan data layanan baru');
     }
 
     public function show(layanan $layanan)
     {
-        return view('layanan.show',[
-            'title'=> 'Detail data',
-            'layanan'=> $layanan
-            ]);
+        return view('layanan.show', [
+            'title' => 'Detail data',
+            'layanan' => $layanan
+        ]);
     }
 
 
     public function edit(layanan $layanan)
     {
-        return view('layanan.edit',[
-            'title'=> 'Edit Layanan', 
+        return view('layanan.edit', [
+            'title' => 'Edit Layanan',
             'layanan' => $layanan,
             'kategori_layanan_all' => kategori_layanan::all()
         ]);
@@ -72,43 +71,45 @@ class LayananController extends Controller
             'deskripsi' => 'required|min:10|max:200',
         ];
 
-        if($request->slug != $layanan->slug){
+        if ($request->slug != $layanan->slug) {
             $rules['slug'] = 'required|unique:layanan';
         }
 
         $validatedData = $request->validate($rules);
 
-        layanan::where('slug',$layanan->slug)
-        ->update($validatedData);
-        
-        return redirect('/layanan')->with('success','Kategori layanan berhsil diupdate!');
+        layanan::where('slug', $layanan->slug)
+            ->update($validatedData);
+
+        return redirect('/layanan')->with('success', 'Kategori layanan berhsil diupdate!');
     }
 
     public function destroy(layanan $layanan)
     {
-        return redirect('/layanan')->with('success','Untuk Menghapus belum dapat dijalankan karena masih dalam pembangunan');
+        return redirect('/layanan')->with('success', 'Untuk Menghapus belum dapat dijalankan karena masih dalam pembangunan');
         // $nama_layanan = $layanan->nama;
-        // layanan::destroy($layanan->id);
+        layanan::destroy($layanan->id);
         // return redirect('/layanan')->with('success','layanan has'.$layanan->nama.' been delete'); 
     }
 
 
-    public function updateStatus(layanan $layanan){
-        if($layanan->status == true){
+    public function updateStatus(layanan $layanan)
+    {
+        if ($layanan->status == true) {
             $layanan->status = false;
             $layanan->save();
-        }else if($layanan->status == false){
+        } else if ($layanan->status == false) {
             $layanan->status = true;
             $layanan->save();
         }
         return redirect('/layanan/' . $layanan->slug);
     }
 
-    public function updateStatus2(layanan $layanan){
-        if($layanan->status == true){
+    public function updateStatus2(layanan $layanan)
+    {
+        if ($layanan->status == true) {
             $layanan->status = false;
             $layanan->save();
-        }else if($layanan->status == false){
+        } else if ($layanan->status == false) {
             $layanan->status = true;
             $layanan->save();
         }

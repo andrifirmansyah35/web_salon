@@ -14,7 +14,7 @@ class JadwalOperasiController extends Controller
 {
     public function cari_jadwal(Request $request)
     {
-        $tanggal_operasi = jadwal_operasi::whereDate('tanggal', date($request->tahun . "-" . $request->bulan . "-" . $request->hari))->first();
+        $tanggal_operasi = jadwal_operasi::where('status', true)->whereDate('tanggal', date($request->tahun . "-" . $request->bulan . "-" . $request->hari))->first();
 
         if ($tanggal_operasi == null) {
             return response()->json([
@@ -52,9 +52,42 @@ class JadwalOperasiController extends Controller
             'messsage' => "success",
             "message_2" => "berhasil menambahkan "
         ]);
+    }
 
+    public function keranjang_operasi(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+        // keranjang_operasi::where('user_id', $user->id)->get();
 
-        // cek apakah sudah ada operasi didalam keranjang user
+        $keranjang_operasi_user_buka = keranjang_operasi::where([
+            ['user_id', $user->id],
+            ['status', 1]
+        ])->get();
 
+        $keranjang_operasi_user_terblokir = keranjang_operasi::where([
+            ['user_id', $user->id],
+            ['status', 0]
+        ])->get();
+
+        return response()->json([
+            'message' => 'success',
+            'keranjang_operasi_buka' => $keranjang_operasi_user_buka,
+            'keranjang_operasi_terblokir' => $keranjang_operasi_user_terblokir
+        ]);
+    }
+
+    public function keranjang_operasi_hapus_terblokir(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+
+        $keranjang_operasi_user_terblokir = keranjang_operasi::where([
+            ['user_id', $user->id],
+            ['status', false]
+        ])->delete();
+
+        return response()->json([
+            'message' => 'success',
+            'message_2' => 'berhasil menghapus operasi yang terblokir pada keranjang anda'
+        ]);
     }
 }
