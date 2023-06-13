@@ -13,12 +13,12 @@ class CreateReservasisTable extends Migration
      */
     public function up()
     {
-        Schema::create('reservasis', function (Blueprint $table) {
+        Schema::create('reservasi', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('layanan_id');
             $table->foreignId('operasi_id');
-            $table->foreignId('pembayaran_id');
+            $table->enum('status', ['antri', 'diproses', 'selesai', 'dibatalkan', 'tidakd datang']);
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateReservasisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reservasis');
+        Schema::dropIfExists('reservasi');
     }
 }

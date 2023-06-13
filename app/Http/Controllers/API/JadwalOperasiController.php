@@ -90,4 +90,14 @@ class JadwalOperasiController extends Controller
             'message_2' => 'berhasil menghapus operasi yang terblokir pada keranjang anda'
         ]);
     }
+
+    public function keranjang_operasi_user_hapus(Request $request)
+    {
+        $keranjang_operasi = keranjang_operasi::where('id', $request->keranjang_operasi_id)->delete();
+
+        return response()->json([
+            'message' => 'success',
+            'keranjang_operasi' => $keranjang_operasi
+        ]);
+    }
 }

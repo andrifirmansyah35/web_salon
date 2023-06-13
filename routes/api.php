@@ -7,8 +7,7 @@ use App\Http\Controllers\API\KategoriLayananController;
 use App\Http\Controllers\API\LayananController;
 use App\Http\Controllers\API\JadwalOperasiController;
 use App\Http\Controllers\API\KeranjangLayananController;
-// use App\
-
+use App\Http\Controllers\API\ReservasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,11 +25,6 @@ use App\Http\Controllers\API\KeranjangLayananController;
 // });
 
 Route::post('/login', [AuthController::class, 'login']);                                //1. login page
-
-
-// Route::get('/coba_api',function(){
-//     return "Byajingan";
-// });
 
 Route::middleware(['middleware' => 'auth:sanctum'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
@@ -50,13 +44,15 @@ Route::middleware(['middleware' => 'auth:sanctum'])->group(function () {
     Route::post('/keranjang-operasi-tambah', [JadwalOperasiController::class, 'keranjang_operasi_tambah']);
     Route::post('/keranjang-operasi-user', [JadwalOperasiController::class, 'keranjang_operasi']);
     Route::post('/keranjang-operasi-terblokir-hapus', [JadwalOperasiController::class, 'keranjang_operasi_hapus_terblokir']);   //belm di cek
-    Route::post('/keranjang-operasi-hapus', [JadwalOperasiController::class, 'keranjang_operasi_hapus']);
+    Route::post('/keranjang-operasi-user-hapus', [JadwalOperasiController::class, 'keranjang_operasi_user_hapus']);
 
     // membuat api untuk keranjang layanan---------------------------------------------------------
     Route::post('/keranjang-layanan-tambah', [KeranjangLayananController::class, 'keranjang_layanan_tambah']);
     Route::get('/keranjang-layanan-user', [KeranjangLayananController::class, 'keranjang_layanan']);
 
-    // membuat api untuk transaksi
-    // Route::post('/keranjang-operasi', [KeranjangLayananController::class, 'keranjang_layanan']);  //BELUM
-    // menampilkan semua pesanan
+    // membuat api untuk reservasi
+    Route::post('/reservasi-user-daftar', [ReservasiController::class, 'reservasi_user_daftar']);
+    Route::post('/reservasi-tambah', [ReservasiController::class, 'reservasi_tambah']);
+    Route::post('/reservasi-pengajuan-batal', [ReservasiController::class, '']);
+    Route::post('/reservasi-hapus', [ReservasiController::class, '']);
 });

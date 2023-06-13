@@ -75,10 +75,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $op->waktu_mulai }}</td>
                                 <td>{{ $op->waktu_selesai }}</td>
-                                <td>
-                                    {{ $op->status }}
-                                </td>
-
+                                <td>{{ $op->status }}</td>
                             </tr>
                         @endforeach
                     </tbody>

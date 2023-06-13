@@ -16,7 +16,7 @@ class KeranjangLayananController extends Controller
     public function keranjang_layanan_tambah(Request $request)
     {
         $layanan = layanan::where('slug', $request->slug_layanan)->first();
-        $user = User::where('email', $request->email_user)->first();
+        $user = User::where('email', $request->email)->first();
 
         // 1. cek apakah data layanan sudah ada didalam table keranjang
         $keranjang_layanan_user = keranjang_layanan::where('layanan_id', $layanan->id)->first();
