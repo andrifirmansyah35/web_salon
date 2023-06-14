@@ -17,4 +17,13 @@ class Reservasi extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function layanan()
+    {
+        return $this->hasMany(User::class, 'user_id');
+    }
+    public function operasi()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

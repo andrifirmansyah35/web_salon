@@ -27,7 +27,8 @@ class ReservasiController extends Controller
             return  [
                 "user_id" => $data->user_member->name,
                 "layanan_id" => $data->layanan_id,
-                "operasi_id" => $data->operasi_id
+                "operasi_id" => $data->operasi_id,
+                "status" => $data->status,
             ];
         });
 
