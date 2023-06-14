@@ -51,8 +51,9 @@ Route::middleware(['middleware' => 'auth:sanctum'])->group(function () {
     Route::get('/keranjang-layanan-user', [KeranjangLayananController::class, 'keranjang_layanan']);
 
     // membuat api untuk reservasi
-    Route::post('/reservasi-user-daftar', [ReservasiController::class, 'reservasi_user_daftar']);
+    Route::get('/reservasi-user-daftar', [ReservasiController::class, 'reservasi_user_daftar']);
     Route::post('/reservasi-tambah', [ReservasiController::class, 'reservasi_tambah']);
-    Route::post('/reservasi-pengajuan-batal', [ReservasiController::class, '']);
-    Route::post('/reservasi-hapus', [ReservasiController::class, '']);
+
+    Route::post('/reservasi-pengajuan-batal', [ReservasiController::class, 'reservasi_pengajuan_batal']);
+    Route::post('/reservasi-hapus', [ReservasiController::class, 'reservasi_hapus']);
 });

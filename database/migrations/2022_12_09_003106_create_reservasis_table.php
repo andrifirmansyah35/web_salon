@@ -18,8 +18,9 @@ class CreateReservasisTable extends Migration
             $table->foreignId('user_id');
             $table->foreignId('layanan_id');
             $table->foreignId('operasi_id');
-            $table->enum('status', ['antri', 'diproses', 'selesai', 'dibatalkan', 'tidakd datang']);
+            $table->enum('status', ['antri', 'diproses', 'selesai', 'dibatalkan', 'tidakd datang', 'batal hapus']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

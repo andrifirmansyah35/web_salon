@@ -12,11 +12,29 @@ class LayananController extends Controller
 
     public function index()
     {
-        // return layanan::all();
         return view('layanan.index', [
             'title' => 'Layanan',
             'layanan' => layanan::all()
         ]);
+
+        // coba relation secara langsung=======================================
+        // $datas = [];
+        // foreach (layanan::all() as $layanan) {
+        //     $datas[] = [
+        //         "id" => $layanan->id,
+        //         "nama" => $layanan->nama,
+        //         "kategori" => $layanan->kategori_layanan->nama
+        //     ];
+        // }
+        // return $datas;
+        // =====================================================================
+
+        // ============================================================
+        // $hiya = [];
+        // $hiya[] = ["memek" => "bundar", "mimik" => "susu"];
+        // $hiya[] = ["mimik" => "tajin", "memek" => "prawan"];
+        // return $hiya;
+        // ========================================================
     }
 
 
