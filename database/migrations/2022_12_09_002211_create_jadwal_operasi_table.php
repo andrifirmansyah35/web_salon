@@ -17,9 +17,9 @@ class CreateJadwalOperasiTable extends Migration
             $table->id();
             $table->date('tanggal')->unique();
             $table->string('kategori_operasi');
-            $table->string('hari',2);
-            $table->string('bulan',2);
-            $table->string('tahun',4);
+            $table->string('hari', 2);
+            $table->string('bulan', 2);
+            $table->string('tahun', 4);
             $table->boolean('status');
             $table->timestamps();
         });

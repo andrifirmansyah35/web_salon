@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReservasisTable extends Migration
+class CreateTokenPasswordsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateReservasisTable extends Migration
      */
     public function up()
     {
-        Schema::create('reservasi', function (Blueprint $table) {
+        Schema::create('token_passwords', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('jadwal_operasi_id');
             $table->foreignId('user_id');
-            $table->foreignId('layanan_id');
-            $table->foreignId('operasi_id');
-            $table->enum('status', ['antri', 'diproses', 'selesai', 'dibatalkan', 'tidak datang', 'batal hapus']);
+            $table->string('token');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -32,6 +28,6 @@ class CreateReservasisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reservasi');
+        Schema::dropIfExists('token_passwords');
     }
 }

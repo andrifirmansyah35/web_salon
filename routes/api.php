@@ -8,6 +8,7 @@ use App\Http\Controllers\API\LayananController;
 use App\Http\Controllers\API\JadwalOperasiController;
 use App\Http\Controllers\API\KeranjangLayananController;
 use App\Http\Controllers\API\ReservasiController;
+use App\Http\Controllers\API\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +25,15 @@ use App\Http\Controllers\API\ReservasiController;
 //     return $request->user();
 // });
 
-Route::post('/login', [AuthController::class, 'login']);                                //1. login page
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::post('/send-token-lupa-password', [UserController::class, 'send_token_lupa_password']);
+Route::post('/password-baru-dengan-token-konfirmasi', [UserController::class, 'password_baru_dengan_token_konfirmasi']); //on progress
+
+// Route::post('/konfirmasi-password-baru',);
 
 Route::middleware(['middleware' => 'auth:sanctum'])->group(function () {
+    Route::post('/password-baru', [UserController::class, 'password_baru']);
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::post('/password-baru', [AuthController::class, 'password_baru']);
 
@@ -39,7 +46,7 @@ Route::middleware(['middleware' => 'auth:sanctum'])->group(function () {
 
     // ---------------------------------------------------------------------------------------------------------------------------
 
-    // api operasi -----------------------------
+    // api operasi ---------------------------------------------------------------------------------------------------------------
     Route::post('/cari-jadwal-operasi', [JadwalOperasiController::class, 'cari_jadwal']);
     Route::post('/keranjang-operasi-tambah', [JadwalOperasiController::class, 'keranjang_operasi_tambah']);
     Route::post('/keranjang-operasi-user', [JadwalOperasiController::class, 'keranjang_operasi']);

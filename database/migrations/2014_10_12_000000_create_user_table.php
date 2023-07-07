@@ -17,13 +17,11 @@ class CreateUserTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->string('alamat'); 
-            $table->string('telephone'); 
+            $table->string('alamat');
+            $table->string('telephone');
             $table->string('photo_profile')->nullable();
-            $table->enum('level',['pemilik','admin','admin_off','pelanggan','member']); 
-            $table->rememberToken();
+            $table->enum('level', ['pemilik', 'admin', 'admin_off', 'pelanggan', 'member']);
             $table->timestamps();
         });
     }
@@ -38,3 +36,20 @@ class CreateUserTable extends Migration
         Schema::dropIfExists('user');
     }
 }
+
+// public function up()
+// {
+//     Schema::create('user', function (Blueprint $table) {
+//         $table->id();
+//         $table->string('name');
+//         $table->string('email')->unique();
+//         // $table->timestamp('email_verified_at')->nullable();
+//         $table->string('password')->nullable();
+//         $table->string('alamat');
+//         $table->string('telephone');
+//         // $table->string('photo_profile')->nullable();
+//         $table->enum('level', ['pemilik', 'admin', 'admin_off', 'pelanggan', 'member']);
+//         $table->rememberToken();
+//         $table->timestamps();
+//     });
+// }

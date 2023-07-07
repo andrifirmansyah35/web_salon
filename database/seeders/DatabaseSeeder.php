@@ -9,9 +9,10 @@ use App\Models\User;
 use App\Models\kategori_layanan;
 use App\Models\layanan;
 use App\Models\kategori_operasi;
-use App\Models\tanggal_operasi;
 use App\Models\skema_operasi;
-
+use App\Models\jadwal_operasi;
+use App\Models\operasi;
+use App\Models\Reservasi;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -34,57 +35,50 @@ class DatabaseSeeder extends Seeder
             'level' => 'pemilik'
         ]);
 
-        User::create([
-            'name' => 'Eni Rohmani',
-            'email' => 'eni_rohmani@gmail.com',
-            'alamat' => 'Jl. Bantul No.13, Monggang, Pendowoharjo, Kec. Sewon, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55186',
-            'telephone' => '027749137117',
-            'password' => Hash::make('passss_eni'),
-            'level' => 'admin'
-        ]);
 
         User::create([
             'name' => 'Vinda Risma',
-            'email' => 'vinri@gmail.com',
+            'email' => 'vindarisma.vr@gmail.com',
             'alamat' => 'Mrisi RT 11, Tirtonirmolo Kasihan, Bantul Yohyakarta',
             'telephone' => '089632311271',
-            'password' => Hash::make('passss_vinda'),
-            'level' => 'pelanggan'
-        ]);
-
-        User::create([
-            'name' => 'Ihsan Ananda Pratama',
-            'email' => 'ihsan.anan@gmail.com',
-            'alamat' => 'Sleman Yogyakarta',
-            'telephone' => '089632314444',
-            'level' => 'pelanggan'
-        ]);
-
-        User::create([
-            'name' => 'Tri Agung Jiwandono',
-            'email' => 'tj@gmail.com',
-            'alamat' => 'Purwokerto Jawa Tengah',
-            'telephone' => '089632314333',
-            'level' => 'pelanggan'
-        ]);
-
-        User::create([
-            'name' => 'Happy Nessa Maharani',
-            'email' => 'happ@gmail.com',
-            'alamat' => 'Purwokerto Jawa Tengah',
-            'telephone' => '089632314321',
-            'password' => Hash::make('pass_happy'),
+            'password' => Hash::make('passs_pelangan'),
             'level' => 'member'
         ]);
 
+        User::create([
+            'name' => 'Tri Agung J',
+            'email' => 'triagungj@gmail.com',
+            'alamat' => 'Hidden Gem Purwokerto',
+            'telephone' => '089632314321',
+            'password' => Hash::make('pass_member'),
+            'level' => 'pelanggan'
+        ]);
+
+        User::create([
+            'name' => 'Vindut Rismaputri',
+            'email' => '19107020074@student.uin-suka.ac.id',
+            'alamat' => 'Sewon Asri Tirtonirmolo Kasihan Bantul',
+            'telephone' => '089632314321',
+            'password' => Hash::make('passs_member'),
+            'level' => 'member'
+        ]);
+
+        User::create([
+            'name' => 'Dwi Agus Wahyudi',
+            'email' => 'aw110874@gmail.com',
+            'alamat' => 'Jl. Mrisi rt.11 Tirtonirmolo Kasihan Bantul',
+            'telephone' => '089632314321',
+            'password' => Hash::make('passs_member'),
+            'level' => 'member'
+        ]);
 
         // 2. seed kategori layanan------------------------------------------------------------------------------
-        kategori_layanan::create(['nama' => 'Perawatan Rambut', 'slug' => 'perawatan-rambut']);
-        kategori_layanan::create(['nama' => 'Serba Lulur', 'slug' => 'serba-lulur']);
-        kategori_layanan::create(['nama' => 'SPA', 'slug' => 'spa']);
-        kategori_layanan::create(['nama' => 'Perawatan Tangan dan Kaki', 'slug' => 'perawatan-tangan-dan-kaki']);
-        kategori_layanan::create(['nama' => 'Perawatan Wajah', 'slug' => 'perawatan-wajah']);
-        kategori_layanan::create(['nama' => 'Serba Pijat dan Urut', 'slug' => 'serba-pijat-dan-urut']);
+        kategori_layanan::create(['nama' => 'Perawatan Rambut', 'slug' => 'perawatan-rambut', 'gambar' => 'kategori_layanan/perawatan-rambut.png']);
+        kategori_layanan::create(['nama' => 'Serba Lulur', 'slug' => 'serba-lulur', 'gambar' => 'kategori_layanan/lulur.png']);
+        kategori_layanan::create(['nama' => 'SPA', 'slug' => 'spa', 'gambar' => 'kategori_layanan/spa.png']);
+        kategori_layanan::create(['nama' => 'Perawatan Tangan dan Kaki', 'slug' => 'perawatan-tangan-dan-kaki', 'gambar' => 'kategori_layanan/perawatan-kaki.png']);
+        kategori_layanan::create(['nama' => 'Perawatan Wajah', 'slug' => 'perawatan-wajah', 'gambar' => 'kategori_layanan/perawatan-wajah.png']);
+        kategori_layanan::create(['nama' => 'Serba Pijat dan Urut', 'slug' => 'serba-pijat-dan-urut', 'gambar' => 'kategori_layanan/pijat-urut.png']);
 
 
         // 3. seed layanan-----------------------------------------------------------------------------------------
@@ -153,22 +147,6 @@ class DatabaseSeeder extends Seeder
         kategori_operasi::create(['nama' => 'hari biasa', 'slug' => 'hari-biasa']);
         kategori_operasi::create(['nama' => 'khusus weekend', 'slug' => 'khusus-weekend']);
 
-
-        // 5. seed tangal operasi---------------------------------------------------------------------------
-        // $jumlah_tanggal = 10;
-        // for ($i = 0; $i < $jumlah_tanggal; $i++) {
-        //     $tambah_hari = "+" . strval($i) . "day";
-        //     $tanggal = strtotime($tambah_hari);
-
-        //     tanggal_operasi::create([
-        //             'kategori_operasi_id' => mt_rand(1,4),
-        //             'tanggal_operasi' => date('Y-m-d', $tanggal),
-        //             'tanggal' => intval(date('d', $tanggal)),
-        //             'bulan' => intval(date('m', $tanggal)),
-        //             'tahun' => intval(date('Y', $tanggal))
-        //         ]);
-        //     }
-
         //6. Skema operasi------------------------------------------------------------------------------
         $data_skema_operasi = [
             [1, '09:00', '09:30'],
@@ -218,5 +196,175 @@ class DatabaseSeeder extends Seeder
                 'waktu_selesai' => $dso[1],
             ]);
         }
+
+        // 5.membuat data dummy reservasi ------------------------------------
+        jadwal_operasi::create([
+            'tanggal' => '2023-07-01',
+            'kategori_operasi' => 'khusus hari nasional',
+            'hari' => '05',
+            'bulan' => '07',
+            'tahun' => '2023',
+            'status' => false,
+        ]);
+
+        jadwal_operasi::create([
+            'tanggal' => '2023-07-02',
+            'kategori_operasi' => 'hari biasa',
+            'hari' => '05',
+            'bulan' => '07',
+            'tahun' => '2023',
+            'status' => false,
+        ]);
+
+        jadwal_operasi::create([
+            'tanggal' => '2023-07-03',
+            'kategori_operasi' => 'khusus weekend',
+            'hari' => '05',
+            'bulan' => '07',
+            'tahun' => '2023',
+            'status' => false,
+        ]);
+
+        //6. dummy operasi dari jadwaloperasi diatas------------------------------------------------------------------------------
+        $data_operasi = [
+            [1, '09:00', '09:30', 'dibooking'],
+            [1, '09:30', '10:00', 'dibooking'],
+            [1, '10:00', '10:30', 'kosong'],
+            [1, '10:30', '11:00', 'kosong'],
+            [1, '11:00', '11:30', 'dibooking'],
+            [1, '11:30', '12:00', 'dibooking'],
+            [1, '13:00', '13:30', 'kosong'],
+            [1, '13:30', '14:00', 'kosong'],
+            [1, '14:00', '14:30', 'kosong'],
+            [1, '14:30', '15:00', 'kosong'],
+            [1, '15:00', '15:30', 'kosong'],
+            [1, '15:30', '16:00', 'dibooking'],
+            [1, '16:00', '16:30', 'dibooking'], //haha
+            [2, '09:00', '09:30', 'dibooking'],
+            [2, '09:30', '10:00', 'dibooking'],
+            [2, '10:00', '10:30', 'dibooking'],
+            [2, '10:30', '11:00', 'kosong'],
+            [2, '11:00', '11:30', 'kosong'],
+            [2, '13:00', '13:30', 'kosong'],
+            [2, '13:30', '14:00', 'kosong'],
+            [2, '14:00', '14:30', 'kosong'],
+            [2, '14:30', '15:00', 'kosong'],
+            [2, '15:00', '15:30', 'kosong'],
+            [2, '15:30', '16:00', 'kosong'],
+            [2, '16:00', '16:30', 'kosong'], //haha2
+            [3, '09:00', '09:30', 'dibooking'],
+            [3, '09:30', '10:00', 'dibooking'],
+            [3, '10:00', '10:30', 'kosong'],
+            [3, '10:30', '11:00', 'kosong'],
+            [3, '11:00', '11:30', 'dibooking'],
+            [3, '11:30', '12:00', 'dibooking'],
+            [3, '13:00', '13:30', 'kosong'],
+            [3, '13:30', '14:00', 'kosong'],
+            [3, '14:00', '14:30', 'kosong'],
+            [3, '14:30', '15:00', 'kosong'],
+            [3, '15:00', '15:30', 'kosong'],
+            [3, '15:30', '16:00', 'kosong'],
+            [3, '16:00', '16:30', 'kosong'], //haha3
+        ];
+        // $d_jadwal_operasi_id = 
+
+        foreach ($data_operasi as $o) {
+            operasi::create([
+                'jadwal_operasi_id' => $o[0],
+                'waktu_mulai' => $o[1],
+                'waktu_selesai' => $o[2],
+                'status' => $o[3]
+            ]);
+        }
+
+        // dummy reservasi-----------------------------------------------------------------------------------------------------------------------------
+        Reservasi::create([
+            'jadwal_operasi_id' => 1,
+            'user_id' => 2,
+            'layanan_id' => 1,
+            'operasi_id' => 1,
+            'status' => 'selesai'
+        ]);
+
+        Reservasi::create([
+            'jadwal_operasi_id' => 1,
+            'user_id' => 2,
+            'layanan_id' => 3,
+            'operasi_id' => 2,
+            'status' => 'selesai'
+        ]);
+
+        Reservasi::create([
+            'jadwal_operasi_id' => 1,
+            'user_id' => 3,
+            'layanan_id' => 13,
+            'operasi_id' => 5,
+            'status' => 'selesai'
+        ]);
+
+        Reservasi::create([
+            'jadwal_operasi_id' => 1,
+            'user_id' => 3,
+            'layanan_id' => 2,
+            'operasi_id' => 6,
+            'status' => 'selesai'
+        ]);
+
+        Reservasi::create([
+            'jadwal_operasi_id' => 1,
+            'user_id' => 5,
+            'layanan_id' => 1,
+            'operasi_id' => 12,
+            'status' => 'selesai'
+        ]);
+
+        Reservasi::create([
+            'jadwal_operasi_id' => 1,
+            'user_id' => 5,
+            'layanan_id' => 20,
+            'operasi_id' => 13,
+            'status' => 'selesai'
+        ]);
+
+        Reservasi::create([
+            'jadwal_operasi_id' => 2,
+            'user_id' => 4,
+            'layanan_id' => 6,
+            'operasi_id' => 14,
+            'status' => 'selesai'
+        ]);
+
+        // -----------------------------------
+        Reservasi::create([
+            'jadwal_operasi_id' => 3,
+            'user_id' => 2,
+            'layanan_id' => 2,
+            'operasi_id' => 26,
+            'status' => 'selesai'
+        ]);
+
+        Reservasi::create([
+            'jadwal_operasi_id' => 3,
+            'user_id' => 2,
+            'layanan_id' => 1,
+            'operasi_id' => 27,
+            'status' => 'selesai'
+        ]);
+
+        Reservasi::create([
+            'jadwal_operasi_id' => 3,
+            'user_id' => 3,
+            'layanan_id' => 20,
+            'operasi_id' => 30,
+            'status' => 'selesai'
+        ]);
+
+        Reservasi::create([
+            'jadwal_operasi_id' => 4,
+            'user_id' => 4,
+            'layanan_id' => 6,
+            'operasi_id' => 31,
+            'status' => 'selesai'
+        ]);
     }
 }

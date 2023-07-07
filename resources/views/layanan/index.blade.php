@@ -5,7 +5,11 @@
     <div class="d-flex">
         <h1 class="h3 mb-2 text-gray-800">{{ $title }}</h1>
         <div class="ml-auto p-2 bd-highlight">
-            <a href="/layanan/create" class="btn btn-primary btn-lg mb-3 ml-auto d-block">
+            <a href="/print_daftar_layanan" class="btn btn-danger btn-lg mb-3 ml-auto" terget="_blank">
+                <i class="fas fa-solid fa-print mr-1"></i>
+                <p class="d-inline">Print Daftar Layanan</p>
+            </a>
+            <a href="/layanan/create" class="btn btn-primary btn-lg mb-3 ml-auto">
                 <i class="fas fa-solid fa-plus mr-1"></i>
                 <p class="d-inline">Tambah Data Layanan</p>
             </a>

@@ -15,9 +15,8 @@ class JadwalOperasiController extends Controller
         return view('jadwal_operasi.index', [
             'title' => 'Jadwal Operasi',
             'kategori_operasi_all' => kategori_operasi::latest()->get(),
-            'jadwal_operasi_all' => jadwal_operasi::orderBy('tanggal', 'asc')->get()
+            'jadwal_operasi_all' => jadwal_operasi::orderBy('tanggal', 'desc')->get()
         ]);
-        // return "kontol";
     }
 
 

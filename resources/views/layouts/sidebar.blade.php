@@ -85,8 +85,8 @@
         </a>
         <div id="reservasiPages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="">Pesan Ditempat</a>
-                <a class="collapse-item" href="">Khusus Member</a>
+                <a class="collapse-item" href="/reservasi">Reservasi Hari Ini</a>
+                <a class="collapse-item" href="/reservasi_mendatang">Reservasi Mendatang</a>
             </div>
         </div>
     </li>
@@ -99,8 +99,7 @@
         </a>
         <div id="laporanPages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="">Pesan Ditempat</a>
-                <a class="collapse-item" href="">Khusus Member</a>
+                <a class="collapse-item" href="/laporan_reservasi">Laporan Reservasi</a>
             </div>
         </div>
     </li>

@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
+// email
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendEmail;
+
+
 
 class UserController extends Controller
 {
@@ -51,7 +56,6 @@ class UserController extends Controller
         if ($request['password']) {
             $validatedData['password'] =  Hash::make($validatedData['password']);
         }
-
 
         if ($request->file('photo_profile')) {
             if ($request->photoProfilLama) {
@@ -128,6 +132,16 @@ class UserController extends Controller
         $data_pelanggan->level = 'member';
         $data_pelanggan->password = Hash::make($validatedData['password']);
         $data_pelanggan->save();
+
+        // send email
+        $isi_email = [
+            'title' => 'RCSM Bantul - Member Baru',
+            'body' => 'Akun anda sudah menjadi member RCSM bantul. Sekarang anda dapat menggunakan aplikasi RCSM Bantul untuk melakukan reservasi dari layanan yan kami miliki.'
+        ];
+
+        $tujuan = $data_pelanggan->email;
+
+        Mail::to($tujuan)->send(new SendEmail($isi_email));
 
         return redirect('/daftar_member')->with('success', $data_pelanggan->name . ' Berhasil mejadi member');
     }

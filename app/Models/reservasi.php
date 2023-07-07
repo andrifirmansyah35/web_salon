@@ -18,12 +18,17 @@ class Reservasi extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function jadwal_operasi()
+    {
+        return $this->belongsTo(jadwal_operasi::class, 'jadwal_operasi_id');
+    }
+
     public function layanan()
     {
-        return $this->hasMany(User::class, 'user_id');
+        return $this->belongsTo(layanan::class, 'layanan_id');
     }
     public function operasi()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(operasi::class, 'operasi_id');
     }
 }

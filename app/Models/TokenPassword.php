@@ -5,9 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class tanggal_operasi extends Model
+class TokenPassword extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    protected $table = 'tanggal_operasi';
+
+    public function user()
+    {
+        return $this->hasMany(user::class);
+    }
 }

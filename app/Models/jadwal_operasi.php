@@ -11,4 +11,9 @@ class jadwal_operasi extends Model
 
     protected $table = 'jadwal_operasi';
     protected $guarded = ['id'];
+
+    // public function operasi()
+    // {
+    //     return $this->hasMany(operasi::class);
+    // }
 }

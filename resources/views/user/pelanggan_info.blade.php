@@ -77,11 +77,11 @@
                     </div>
 
                 </div>
-                <div class="col-sm-4">
+                {{-- <div class="col-sm-4">
                     <div class="form-group">
                         <img src="{{ asset('img/profile.png') }}" class="rounded mx-auto w-100" alt="...">
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
 
