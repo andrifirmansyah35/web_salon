@@ -62,7 +62,8 @@
         <tr>
             <td>Hal</td>
             <td>:</td>
-            <td>Laporan Layanan</td>
+            <td>Laporan Reservasi
+                {{ session()->get('laporan_status') != 'semua' ? '- ' . session()->get('laporan_status') : '' }}</td>
         </tr>
         @if (session()->has('laporan_reservasi_tanggal_awal'))
             <tr>
@@ -84,6 +85,7 @@
             <td><strong>Member</strong></td>
             <td><strong>Status</strong></td>
             <td><strong>Harga</strong></td>
+            <td><strong>Status</strong></td>
         </tr>
 
         <tbody>
@@ -96,6 +98,7 @@
                     <td>{{ $reservasi['user_member_nama'] }}</td>
                     <td>{{ $reservasi['layanan_nama'] }}</td>
                     <td>{{ 'Rp ' . number_format($reservasi['harga'], 2, ',', '.') }}</td>
+                    <td>{{ $reservasi['status'] }}</td>
                 </tr>
                 </tr>
             @endforeach

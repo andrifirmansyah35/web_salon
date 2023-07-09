@@ -224,7 +224,24 @@ class DatabaseSeeder extends Seeder
             'tahun' => '2023',
             'status' => false,
         ]);
+        // diperuntukan untuk reservasi mendatang
+        jadwal_operasi::create([
+            'tanggal' => '2023-07-20',
+            'kategori_operasi' => 'hari biasa',
+            'hari' => '20',
+            'bulan' => '07',
+            'tahun' => '2023',
+            'status' => false,
+        ]);
 
+        jadwal_operasi::create([
+            'tanggal' => '2023-07-21',
+            'kategori_operasi' => 'hari biasa',
+            'hari' => '21',
+            'bulan' => '07',
+            'tahun' => '2023',
+            'status' => false,
+        ]);
         //6. dummy operasi dari jadwaloperasi diatas------------------------------------------------------------------------------
         $data_operasi = [
             [1, '09:00', '09:30', 'dibooking'],
@@ -264,7 +281,30 @@ class DatabaseSeeder extends Seeder
             [3, '14:30', '15:00', 'kosong'],
             [3, '15:00', '15:30', 'kosong'],
             [3, '15:30', '16:00', 'kosong'],
-            [3, '16:00', '16:30', 'kosong'], //haha3
+            [3, '16:00', '16:30', 'kosong'], //haha3--------------------------
+            [4, '09:00', '09:30', 'dibooking'],
+            [4, '09:30', '10:00', 'kosong'],
+            [4, '10:00', '10:30', 'kosong'],
+            [4, '10:30', '11:00', 'kosong'],
+            [4, '11:00', '11:30', 'kosong'],
+            [4, '11:30', '12:00', 'kosong'],
+            [4, '13:00', '13:30', 'kosong'],
+            [4, '13:30', '14:00', 'kosong'],
+            [4, '14:00', '14:30', 'kosong'],
+            [4, '14:30', '15:00', 'kosong'],
+            [4, '15:00', '15:30', 'kosong'], //diperuntukkan untuk reservasi mendatang
+            [5, '09:00', '09:30', 'kosong'],
+            [5, '09:30', '10:00', 'kosong'],
+            [5, '10:00', '10:30', 'kosong'],
+            [5, '10:30', '11:00', 'kosong'],
+            [5, '11:00', '11:30', 'kosong'],
+            [5, '11:30', '12:00', 'kosong'],
+            [5, '13:00', '13:30', 'kosong'],
+            [5, '13:30', '14:00', 'kosong'],
+            [5, '14:00', '14:30', 'kosong'],
+            [5, '14:30', '15:00', 'kosong'],
+            [5, '15:00', '15:30', 'kosong'], //diperuntukkan untuk reservasi mendatang
+
         ];
         // $d_jadwal_operasi_id = 
 
@@ -363,8 +403,8 @@ class DatabaseSeeder extends Seeder
             'jadwal_operasi_id' => 4,
             'user_id' => 4,
             'layanan_id' => 6,
-            'operasi_id' => 31,
-            'status' => 'selesai'
+            'operasi_id' => 39,
+            'status' => 'antri'
         ]);
     }
 }

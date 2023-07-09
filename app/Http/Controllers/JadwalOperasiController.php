@@ -33,7 +33,7 @@ class JadwalOperasiController extends Controller
         $validatedData['status'] = 0;
 
         //0.1 membandingkan membandingkan jika seharusnya jadwal operasi dibuat sekiranya satu hari sebelum 
-        $tanggal_hari_ini = date('Y-m-d');;
+        $tanggal_hari_ini = date('Y-m-d');
         $tanggal_operasi_dibuat = date($validatedData['tanggal']);
 
         // cek apakah tanggal pembuatan menggunakan waktu lampau

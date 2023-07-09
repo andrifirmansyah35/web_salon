@@ -16,10 +16,11 @@ use App\Http\Controllers\LaporanController;
 // mencoba menggunakan email 
 use App\Http\Controllers\EmailTestController;
 
-use App\Models\kategori_layanan;
-
-
-
+use App\Models\User;
+use App\Models\layanan;
+use App\Models\Reservasi;
+use App\Models\jadwal_operasi;
+use App\Models\operasi;
 
 // mencoba email ----------------------------------------------------------
 route::get('/email-test', [EmailTestController::class, 'index']);
@@ -32,9 +33,37 @@ Route::get('/', [HomeController::class, 'index']);
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard', function () {
+        $layanan_jumlah = layanan::all()->count();
+        $member_jumlah = user::where('level', 'member')->count();
+        $reservasi_hari_ini_jumlah = 0;
+        $total_reservasi_bulan_ini = 0;
+
+        // mencari jumlah reservasi hari ini----------------------------------------
+        $hari_ini = date("Y-m-d");
+
+        $jadwal_operasi = jadwal_operasi::where('tanggal', $hari_ini)->first();
+
+        if ($jadwal_operasi == null) {
+            $reservasi_hari_ini_jumlah = 0;
+        } else {
+            $reservasi_hari_ini_jumlah = operasi::where('jadwal_operasi_id', $jadwal_operasi->id)->where('status', 'dibooking')->count();
+        }
+
+        // 1.1 Mencari jumlah reservasi : cari id tannggal ------------------------------------------------
+        $bulan_ini = date('m');
+        $tahun_ini = date('Y');
+
+        $jadwal_operasi_id = jadwal_operasi::where('bulan', $bulan_ini)->where('tahun', $tahun_ini)->first()->id;
+
+        //1.2 Mencari jumlah reservasi : yang dibooking ---------------------------------------------------
+        $total_reservasi_bulan_ini = operasi::where('jadwal_operasi_id', $jadwal_operasi_id)->count();
+
         return view('index', [
             'title' => 'Halaman Dashboard',
-            'kategori_layanan' => kategori_layanan::all()
+            "jumlah_layanan" => $layanan_jumlah,
+            "jumlah_member" => $member_jumlah,
+            "jumlah_reservasi_hari_ini" => $reservasi_hari_ini_jumlah,
+            "jumlah_reservsi_booking_bulan_ini" => $total_reservasi_bulan_ini
         ]);
     });
 
@@ -60,12 +89,13 @@ Route::middleware(['auth'])->group(function () {
     // reservasi controller ------------------------------------------------------------------------------------------
     Route::get('/reservasi', [ReservasiController::class, 'reservasi']);
     Route::get('/reservasi_mendatang', [ReservasiController::class, 'reservasi_mendatang']);
+    Route::get('/reservasi_mendatang_detail/{jadwal_operasi:id}', [ReservasiController::class, 'reservasi_mendatang_detail']);
     Route::put('/reservasi_status', [ReservasiController::class, 'reservasi_status']);
     Route::get('/reservasi_konfirmasi_pembayaran/{reservasi:id}', [ReservasiController::class, 'konfirmasi_pembayaran']);
 
     // Laporan Controller ----------------------------------------------------------------------------------------------
     Route::get('/laporan_reservasi', [LaporanController::class, 'laporan_reservasi']);
-    Route::post('/reservasi_laporan_set_waktu', [LaporanController::class, 'reservasi_laporan_set_waktu']); //on progress
+    Route::post('/reservasi_laporan_set_waktu', [LaporanController::class, 'reservasi_laporan_set_waktu']);
     Route::get('/print_laporan_reservasi', [LaporanController::class, 'print_laporan_reservasi']);
 
     Route::get('/print_resevasi', [LaporanController::class, 'print_reservasi']);

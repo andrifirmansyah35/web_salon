@@ -7,7 +7,7 @@
 
     <div class="row">
         <div class="col">
-            <p class="font-italic">*Cek data daftar keseluruan reservasi <a href="/daftar_reservasi">Click Disini</a>
+            <p class="font-italic">*Cek data daftar reservasi mendatang <a href="/reservasi_mendatang">Click Disini</a>
             </p>
         </div>
     </div>
@@ -29,71 +29,66 @@
     @endif
 
     <!-- DataTales Example -->
-    @if ($reservasi_all == '')
-        <div class="card bg-danger" style="w-100">
-            <div class="card-body text-center">
-                {{-- <h5 class="card-title text-white">Informasi Reservasi</h5> --}}
-                <p class="card-text text-white">Hari ini tidak ada pelangan yang melakukan reservasi</p>
-            </div>
-        </div>
-    @else
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                {{-- <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6> --}}
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
 
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            {{-- <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6> --}}
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+
+                        <tr>
+                            <th>No</th>
+                            <th>Operasional</th>
+                            <th>Pelangan</th>
+                            <th>Layanan</th>
+                            <th>Harga</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>No</th>
+                            <th>Operasional</th>
+                            <th>Pelangan</th>
+                            <th>Layanan</th>
+                            <th>harga</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach ($reservasi_all as $r)
                             <tr>
-                                <th>No</th>
-                                <th>Operasional</th>
-                                <th>Pelangan</th>
-                                <th>Layanan</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>No</th>
-                                <th>Operasional</th>
-                                <th>Pelangan</th>
-                                <th>Layanan</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
-                            @foreach ($reservasi_all as $r)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $r['operasi_mulai'] }}-{{ $r['operasi_selesai'] }}</td>
-                                    <td>{{ $r['user_nama'] }}</td>
-                                    <td>{{ $r['layanan_nama'] }}</td>
-                                    <td><strong>{{ $r['status'] }}</strong></td>
-                                    <td>
-                                        <button type="button" class="btn btn-warning" data-toggle="modal"
-                                            data-target="#modal-reservasi-{{ $r['id'] }}">
-                                            ubah status
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $r['operasi_mulai'] }}-{{ $r['operasi_selesai'] }}</td>
+                                <td>{{ $r['user_nama'] }}</td>
+                                <td>{{ $r['layanan_harga'] }}</td>
+                                <td>{{ $r['layanan_nama'] }}</td>
+                                <td><strong>{{ $r['status'] }}</strong></td>
+                                <td>
+                                    <button type="button" class="btn btn-warning" data-toggle="modal"
+                                        data-target="#modal-reservasi-{{ $r['id'] }}">
+                                        ubah status
+                                    </button>
+
+                                    @if ($r['status'] == 'diproses')
+                                        <button type="button" class="btn btn-success" data-toggle="modal"
+                                            data-target="#modal-reservasi-selesai-{{ $r['id'] }}">
+                                            konfirmasi pembayaran
                                         </button>
-
-                                        @if ($r['status'] == 'diproses')
-                                            <button type="button" class="btn btn-success" data-toggle="modal"
-                                                data-target="#modal-reservasi-selesai-{{ $r['id'] }}">
-                                                konfirmasi pembayaran
-                                            </button>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
-    @endif
+    </div>
 
     <!-2. Modal Jadwal Operasi ubah--->
         @if ($reservasi_all != '')

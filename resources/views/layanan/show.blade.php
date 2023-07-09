@@ -26,14 +26,14 @@
                 </div>
             </div>
         </div>
-        <div class="card-body">
+        {{-- <div class="card-body">
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label">Deskripsi</label>
                 <div class="col-sm-10">
                     <textarea class="form-control form-control-lg" rows="3" readonly>{{ $layanan->deskripsi ? $layanan->deskripsi : '-' }}</textarea>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="card-body">
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label">Status Layanan</label>

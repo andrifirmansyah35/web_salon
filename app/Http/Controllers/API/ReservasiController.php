@@ -21,6 +21,17 @@ class ReservasiController extends Controller
     {
         $user = User::where('email', $request->email)->first();
 
+        $tanggal_hari_ini = date('Y-m-d');
+
+        $cek_reservasi_lampau = Reservasi::whereDate('tanggal', '<', $tanggal_hari_ini)->get();
+
+        if ($cek_reservasi_lampau != []) {
+            foreach ($cek_reservasi_lampau as $rt) {
+                Reservasi::where('id', $rt->id)
+                    ->update(['status' => 'tidak datang']);
+            }
+        }
+
         $reservasi_user = Reservasi::where('user_id', $user->id)->get();
 
         $reservasi_user_komplit = $reservasi_user->map(function ($data) {

@@ -1,15 +1,8 @@
 @extends('layouts.main')
 
 @section('content')
-    <!-- title dan icon tambah -->
     <div class="d-flex align-items-center">
         <div class="h2 mb-2 text-gray-800 d-block">{{ $title }}</div>
-        <div class="ml-auto p-2 bd-highlight d-block">
-            <a href="/kategori_layanan/create" class="btn btn-primary btn-lg mb-3 ml-auto d-block">
-                <i class="fas fa-solid fa-plus mr-1"></i>
-                <p class="d-inline">Tambah Kategori Layanan</p>
-            </a>
-        </div>
     </div>
 
     @if (session()->has('success'))
@@ -17,7 +10,6 @@
             {{ session('success') }}
         </div>
     @endif
-
 
     @if (session()->has('fail'))
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -29,6 +21,7 @@
     @endif
 
     <!-- DataTales Example -->
+
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             {{-- <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6> --}}
@@ -37,35 +30,31 @@
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-
                         <tr>
                             <th>No</th>
-                            <th>Nama</th>
-                            <th>Action</th>
+                            <th>Jadwal</th>
+                            <th>Pelangan</th>
+                            <th>Layanan</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>No</th>
-                            <th>Name</th>
-                            <th>Action</th>
+                            <th>Jadwal</th>
+                            <th>Pelangan</th>
+                            <th>Layanan</th>
+                            <th>Status</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach ($kategori_layanan as $kl)
+                        @foreach ($reservasi_all as $r)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $kl->nama }}</td>
-                                <td>
-                                    <a href="/kategori_layanan/{{ $kl->slug }}" class="btn btn-info">detail</a>
-                                    {{-- <a href="/kategori_layanan/{{ $kl->slug }}/edit" class="btn btn-warning">edit</a> --}}
-                                    {{-- <form action="/kategori_layanan/{{ $kl->slug }}" method="POST" class="d-inline">
-                                        @method('delete')
-                                        @csrf
-                                        <button class="btn btn-danger border-0"
-                                            onclick="return confirm('Are You sure?')">hapus</button>
-                                    </form> --}}
-                                </td>
+                                <td>{{ $r['waktu_mulai'] . '-' . $r['waktu_selesai'] }}</td>
+                                <td>{{ $r['pelangan'] }}</td>
+                                <td>{{ $r['layanan'] }}</td>
+                                <td>{{ $r['status'] }}</td>
                             </tr>
                         @endforeach
                     </tbody>

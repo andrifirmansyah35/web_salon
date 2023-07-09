@@ -52,7 +52,7 @@
                                             <input type="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password">
                                         </div>
-                                        
+
                                         <a href="index.html" class="btn btn-danger btn-user btn-block">
                                             Login
                                         </a>

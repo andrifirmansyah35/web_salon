@@ -73,17 +73,17 @@
                                     <a href="/kategori_operasi/{{ $ko->slug }}"
                                         class="btn btn-info text-decoration-none">detail scema</a>
 
-                                    <button data-toggle="modal" data-target="#modal-edit-kategori-{{ $ko->slug }}"
+                                    {{-- <button data-toggle="modal" data-target="#modal-edit-kategori-{{ $ko->slug }}"
                                         class="btn btn-warning">
-                                        edit
-                                    </button>
+                                        edit nama
+                                    </button> --}}
 
-                                    <form action="/kategori_operasi/{{ $ko->slug }}" method="POST" class="d-inline">
+                                    {{-- <form action="/kategori_operasi/{{ $ko->slug }}" method="POST" class="d-inline">
                                         @method('delete')
                                         @csrf
                                         <button class="btn btn-danger border-0"
                                             onclick="return confirm('Are You sure?')">hapus</button>
-                                    </form>
+                                    </form> --}}
                                 </td>
                             </tr>
                         @endforeach

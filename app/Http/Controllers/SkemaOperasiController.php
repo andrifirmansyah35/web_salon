@@ -10,7 +10,6 @@ class SkemaOperasiController extends Controller
 {
     public function hapusSkemaOperasi(Request $request)
     {
-        // return $request;
         skema_operasi::where('id', $request->skema_operasi_id)->delete();
         return redirect('/kategori_operasi/' . $request->kategori_operasi_slug)->with('success', 'Sukses menghapus skema operasi');
     }
@@ -30,7 +29,6 @@ class SkemaOperasiController extends Controller
             $array_waktu = str_split($string_waktu);
             $waktu_jam = intval($array_waktu[0] . $array_waktu[1]);
             $waktu_menit = intval($array_waktu[3] . $array_waktu[4]);
-            // konfersi ke menit waktu
             return ($waktu_jam * 60) + $waktu_menit;
         }
 

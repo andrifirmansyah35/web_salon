@@ -5,13 +5,13 @@
     <div class="d-flex">
         <h1 class="h3 mb-2 text-gray-800">{{ $title }}</h1>
         <div class="ml-auto p-2 bd-highlight">
-            <a href="/print_daftar_layanan" class="btn btn-danger btn-lg mb-3 ml-auto" terget="_blank">
+            <a href="/print_daftar_layanan" class="btn btn-danger btn-lg mb-3 ml-auto" target="_blank">
                 <i class="fas fa-solid fa-print mr-1"></i>
                 <p class="d-inline">Print Daftar Layanan</p>
             </a>
             <a href="/layanan/create" class="btn btn-primary btn-lg mb-3 ml-auto">
                 <i class="fas fa-solid fa-plus mr-1"></i>
-                <p class="d-inline">Tambah Data Layanan</p>
+                <p class="d-inline">Tambah Layanan</p>
             </a>
         </div>
     </div>
@@ -55,7 +55,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $lyn->nama }}</td>
                                 <td>{{ $lyn->kategori_layanan->nama }}</td>
-                                <td>{{ $lyn->harga }}</td>
+                                <td>{{ 'Rp ' . number_format($lyn->harga, 2, ',', '.') }}</td>
                                 <td>
                                     <p class="font-weight-bold text-{{ $lyn->status ? 'success' : 'danger' }}">
                                         {{ $lyn->status ? 'aktif' : 'non-aktif' }}
@@ -69,13 +69,7 @@
                                     <a href="/layanan/{{ $lyn->slug }}"
                                         class="btn btn-info text-decoration-none">detail</a>
                                     <a href="/layanan/{{ $lyn->slug }}/edit" class="btn btn-warning">update</a>
-                                    <form action="/layanan/{{ $lyn->slug }}" method="POST" class="d-inline">
-                                        @method('delete')
-                                        @csrf
-                                        <button class="btn btn-danger border-0"
-                                            onclick="return confirm('Yakin Anda akan memnghapus?')"><span
-                                                class="badge badge-danger">hapus</span></button>
-                                    </form>
+
                                 </td>
                             </tr>
                         @endforeach
@@ -113,3 +107,14 @@
         </div>
     @endforeach
 @endsection
+
+
+{{-- ini adalah fitur yang dihilangkan  --}}
+
+{{-- "<form action="/layanan/{{ $lyn->slug }}" method="POST" class="d-inline">
+    @method('delete')
+    @csrf
+    <button class="btn btn-danger border-0"
+        onclick="return confirm('Yakin Anda akan memnghapus?')"><span
+            class="badge badge-danger">hapus</span></button>
+</form>" --}}

@@ -17,17 +17,19 @@ class LaporanController extends Controller
     public function laporan_reservasi()
     {
         // 0. data awal---------------------------------------------------------------------------------------------------------
-        $jadwal_operasi = jadwal_operasi::where('status', false)->get();
+        // $jadwal_operasi = jadwal_operasi::where('status', false)->get();
+        $jadwal_operasi = null;
         // 1. cari data dengan session tanggal yang sudah di non aktifkan----------------------------------------------------------------
         if (session()->has('laporan_reservasi_tanggal_awal')) {
             $waktu_awal = session()->get('laporan_reservasi_tanggal_awal');
             $waktu_akhir = session()->get('laporan_reservasi_tanggal_akhir');
+            $laporan_status = session()->get('laporan_status');
 
             $jadwal_operasi = jadwal_operasi::whereBetween('tanggal', [$waktu_awal, $waktu_akhir])->where('status', false)
                 ->get();
         }
 
-        if ($jadwal_operasi == null) {
+        if (!session()->has('laporan_reservasi_tanggal_awal')) {
             return view('laporan.laporan_reservasi', [
                 'title' => 'Daftar Reservasi',
                 'laporan_reservasi' => []
@@ -49,7 +51,26 @@ class LaporanController extends Controller
                 "status" => $j->status
             ];
 
+            // $reservasi_tanggal = [];
             $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->get();
+
+            if ($laporan_status == "reservasi selesai") {
+                $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->where('status', 'selesai')->get();
+            } else if ($laporan_status == "reservasi tidak datang") {
+                $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->where('status', 'antri')->get();
+                // mengubah data antri ke data tidak datang-------------------------------------------------------
+                if ($reservasi_tanggal != []) {
+                    foreach ($reservasi_tanggal as $rt) {
+                        Reservasi::where('id', $rt->id)
+                            ->update(['status' => 'tidak datang']);
+                        $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->where('status', 'tidak datang')->get();
+                    }
+                }
+                $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->where('status', 'tidak datang')->get();
+            } else {
+                $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->get();
+            }
+
 
             foreach ($reservasi_tanggal as $rt) {
                 $data_layanan = layanan::where('id', $rt->layanan_id)->first();
@@ -70,7 +91,7 @@ class LaporanController extends Controller
         }
 
         return view('laporan.laporan_reservasi', [
-            'title' => 'Daftar Reservasi',
+            'title' => 'Laporan Reservasi',
             'laporan_reservasi' => $laporan_reservasi
         ]);
     }
@@ -79,6 +100,7 @@ class LaporanController extends Controller
     {
         $request->session()->put('laporan_reservasi_tanggal_awal', $request->tanggal_awal);
         $request->session()->put('laporan_reservasi_tanggal_akhir', $request->tanggal_akhir);
+        $request->session()->put('laporan_status', $request->laporan_status);
 
         return redirect('/laporan_reservasi');
     }
@@ -91,16 +113,14 @@ class LaporanController extends Controller
         if (session()->has('laporan_reservasi_tanggal_awal')) {
             $waktu_awal = session()->get('laporan_reservasi_tanggal_awal');
             $waktu_akhir = session()->get('laporan_reservasi_tanggal_akhir');
+            $laporan_status = session()->get('laporan_status');
 
             $jadwal_operasi = jadwal_operasi::whereBetween('tanggal', [$waktu_awal, $waktu_akhir])->where('status', false)
                 ->get();
         }
 
-        if ($jadwal_operasi == null) {  //perlu diperbaikixxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-            return view('laporan.print_laporan_reservasi', [
-                'title' => 'Daftar Reservasi',
-                'laporan_reservasi' => []
-            ]);
+        if (!session()->has('laporan_reservasi_tanggal_awal')) {
+            return redirect('/laporan_reservasi')->with('fail', 'Anda belum memasukkan jangka waktu informasi laporan reservasi');
         }
 
         // // 2. cari data operasi dari data jadwal---------------------------------------------------------------------------------
@@ -122,6 +142,16 @@ class LaporanController extends Controller
 
             $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->get();
 
+
+            if ($laporan_status == "reservasi selesai") {
+                $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->where('status', 'selesai')->get();
+            } else if ($laporan_status == "reservasi tidak datang") {
+                $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->where('status', 'antri')->get();
+                // catatan masih perlu direvisi--------------------------------------------------------------------
+            } else {
+                $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->get();
+            }
+
             foreach ($reservasi_tanggal as $rt) {
                 $data_layanan = layanan::where('id', $rt->layanan_id)->first();
                 $reservasi_jadwal_operasi = jadwal_operasi::where('id', $rt->jadwal_operasi_id)->first()->tanggal;
@@ -140,8 +170,6 @@ class LaporanController extends Controller
             }
         }
 
-        // return $laporan_reservasi;
-
         $pdf = PDF::loadView(
             'laporan.print_laporan_reservasi',
             compact('laporan_reservasi')
@@ -158,9 +186,6 @@ class LaporanController extends Controller
             'laporan.print_daftar_layanan',
             compact('layanan_all')
         );
-
-
-        return $layanan_all;
         return $pdf->stream('laporan_layanan.pdf');
     }
 }

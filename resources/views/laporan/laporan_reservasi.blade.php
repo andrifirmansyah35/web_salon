@@ -6,7 +6,7 @@
 
         @if ($laporan_reservasi != null)
             <div class="ml-auto p-2 bd-highlight">
-                <a href="/print_laporan_reservasi" class="btn btn-danger btn-lg mb-3 ml-auto" terget="_blank">
+                <a href="/print_laporan_reservasi" class="btn btn-danger btn-lg mb-3 ml-auto" target="_blank">
                     <i class="fas fa-solid fa-print mr-1"></i>
                     <p class="d-inline">Print Laporan reservasi</p>
                 </a>
@@ -52,6 +52,31 @@
                     </div>
                 </div>
                 <div class="row mt-3">
+                    <label class="ml-2">Status Laporan</label>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="laporan_status" id="inlineRadio1"
+                                value="reservasi selesai" {{ session()->has('laporan_status') ? '' : 'checked' }}
+                                {{ session()->get('laporan_status') == 'reservasi selesai' ? 'checked' : '' }} required>
+                            <label class="form-check-label" for="inlineRadio1">reservasi selesai</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="laporan_status" id="inlineRadio2"
+                                value="reservasi tidak datang"
+                                {{ session()->get('laporan_status') == 'reservasi tidak datang' ? 'checked' : '' }}
+                                required>
+                            <label class="form-check-label" for="inlineRadio2">reservasi tidak datang</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="laporan_status" id="inlineRadio3"
+                                value="semua" {{ session()->get('laporan_status') == 'semua' ? 'checked' : '' }} required>
+                            <label class="form-check-label" for="inlineRadio3">semua</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
                     <button type="submit" class="btn btn-primary form-control">Terapkan</button>
                 </div>
             </form>
@@ -75,6 +100,7 @@
                             <th>Member</th>
                             <th>layanan</th>
                             <th>Harga</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -82,8 +108,9 @@
                             <th>No</th>
                             <th>Tanggal dan Operasional</th>
                             <th>Member</th>
-                            <th>Status</th>
+                            <th>layanan</th>
                             <th>Harga</th>
+                            <th>Status</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -93,7 +120,8 @@
                                 <td>{{ $reservasi['jadwal_operasi_tanggal'] }}</td>
                                 <td>{{ $reservasi['user_member_nama'] }}</td>
                                 <td>{{ $reservasi['layanan_nama'] }}</td>
-                                <td>{{ $reservasi['harga'] }}</td>
+                                <td>{{ 'Rp ' . number_format($reservasi['harga'], 2, ',', '.') }}</td>
+                                <td>{{ $reservasi['status'] }}</td>
                             </tr>
                         @endforeach
                     </tbody>
