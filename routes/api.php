@@ -42,7 +42,7 @@ Route::middleware(['middleware' => 'auth:sanctum'])->group(function () {
     Route::get('/kategori-layanan-all', [KategoriLayananController::class, 'index']);
     Route::get('/kategori-layanan-layanan-all', [KategoriLayananController::class, 'kategori_layanan_layanan_all']);
 
-    Route::get('/layanan', [LayananController::class, 'detail']);
+    // Route::get('/layanan', [LayananController::class, 'detail']);
 
     // ---------------------------------------------------------------------------------------------------------------------------
 

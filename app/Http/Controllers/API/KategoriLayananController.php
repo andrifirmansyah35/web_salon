@@ -19,7 +19,7 @@ class KategoriLayananController extends Controller
 
     public function kategori_layanan_layanan_all(Request $request)
     {
-        $kategori_layanan = kategori_layanan::where('slug', $request->slug)->first();
+        $kategori_layanan = kategori_layanan::where('slug', $request->slug_kategori)->first();
 
         $layanan = layanan::where('kategori_layanan_id', $kategori_layanan->id)->get();
 

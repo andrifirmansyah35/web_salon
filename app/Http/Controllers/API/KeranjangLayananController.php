@@ -67,7 +67,6 @@ class KeranjangLayananController extends Controller
 
         return response()->json([
             'data_user' => $user,
-            // 'data keranjang_all' => $keranjang_layanan_user_2,
             "data_keranjang_layanan_open" => $keranjang_layanan_user_buka_2,
             "data_keranjang_close" => $keranjang_layanan_user_tutup_2
         ]);
