@@ -18,7 +18,7 @@ use App\Http\Controllers\EmailTestController;
 use App\Http\Controllers\StorageController;
 use App\Models\User;
 use App\Models\layanan;
-use App\Models\Reservasi;
+use App\Models\reservasi;
 use App\Models\jadwal_operasi;
 use App\Models\operasi;
 

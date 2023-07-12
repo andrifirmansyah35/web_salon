@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\operasi;
 use App\Models\jadwal_operasi;
-use App\Models\Reservasi;
+use App\Models\reservasi;
 use App\Models\User;
 use App\Models\Layanan;
 use Illuminate\Http\Request;
