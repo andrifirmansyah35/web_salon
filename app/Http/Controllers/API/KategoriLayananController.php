@@ -11,9 +11,23 @@ class KategoriLayananController extends Controller
 {
     public function index()
     {
+        $kategori_all = kategori_layanan::all();
+
+        $data_kategori_layanan = [];
+
+        foreach ($kategori_all as $kategori) {
+            $data_kategori_layanan[] = [
+                "id" => $kategori->id,
+                "nama" => $kategori->nama,
+                "gambar" => $kategori->gambar,
+                "slug" => $kategori->slug,
+                "jumlah_layanan" =>  $kategori->layanan->count()
+            ];
+        }
+
         return response()->json([
             'message' => 'success',
-            'kategori_layanan' => kategori_layanan::all()
+            'kategori_layanan' => $data_kategori_layanan
         ]);
     }
 
