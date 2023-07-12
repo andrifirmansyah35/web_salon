@@ -14,6 +14,8 @@ class keranjang_operasi extends Model
 
     protected $casts = [
         'id' => 'int',
-        'status' => 'boolean'
+        'status' => 'boolean',
+        'user_id' => 'int',
+        'operasi_id' => 'int',
     ];
 }

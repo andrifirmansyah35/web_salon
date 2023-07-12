@@ -10,6 +10,11 @@ class TokenPassword extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'id' => 'int',
+        'user_id' => 'int'
+    ];
+
     public function user()
     {
         return $this->hasMany(user::class);

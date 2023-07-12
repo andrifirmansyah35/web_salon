@@ -12,7 +12,9 @@ class keranjang_layanan extends Model
 
     protected $casts = [
         'id' => 'int',
-        'status' => 'boolean'
+        'status' => 'boolean',
+        'user_id' => 'int',
+        'layanan_id' => 'int'
     ];
 
     public function layanan()

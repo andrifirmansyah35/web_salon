@@ -14,6 +14,10 @@ class skema_operasi extends Model
     protected $guarded = ['id'];
     protected $table = 'skema_operasi';
 
+    protected $casts = [
+        'id' => 'int',
+        'kategori_operasi_id' => 'int'
+    ];
 
     public function kategori_operasi()
     {

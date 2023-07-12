@@ -14,6 +14,7 @@ class operasi extends Model
 
     protected $casts = [
         'id' => 'int',
-        'status' => 'boolean'
+        'status' => 'boolean',
+        'jadwal_operasi_id' => 'int'
     ];
 }

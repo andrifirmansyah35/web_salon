@@ -16,7 +16,8 @@ class layanan extends Model
 
     protected $casts = [
         'id' => 'int',
-        'status' => 'boolean'
+        'status' => 'boolean',
+        'kategori_layanan_id' => 'int'
     ];
 
     public function sluggable(): array

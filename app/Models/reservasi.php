@@ -14,7 +14,11 @@ class Reservasi extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-        'id' => 'int'
+        'id' => 'int',
+        'jadwal_operasi_id' => 'int',
+        'user_id' => 'int',
+        'layanan_id' => 'int',
+        'operasi_id' => 'int'
     ];
 
     public function user_member()
