@@ -26,7 +26,7 @@ class ReservasiController extends Controller
         // 1.cek apakah ada data reservasi lampau yang berstatus antri
         $tanggal_hari_ini = date('Y-m-d');
         // 1.1 mendapatkan data lampau -------------------------------------
-        
+        // reservasi mendatang
 
         $cek_reservasi_lampau = Reservasi::whereDate('tanggal', '<', $tanggal_hari_ini)->get(); //salahhhhh
 
