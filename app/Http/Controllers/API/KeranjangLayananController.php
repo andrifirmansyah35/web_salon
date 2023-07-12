@@ -44,7 +44,7 @@ class KeranjangLayananController extends Controller
     public function keranjang_layanan(Request $request)
     {
         $user = User::where('email', $request->email)->first();
-        // $keranjang_layanan_user = keranjang_layanan::where('user_id', $user->id)->get();
+
         $keranjang_layanan_user_buka = keranjang_layanan::where([['user_id', $user->id], ['status', true]])->get();
         $keranjang_layanan_user_tutup = keranjang_layanan::where([['user_id', $user->id], ['status', false]])->get();
 
@@ -64,11 +64,32 @@ class KeranjangLayananController extends Controller
             ];
         });
 
-
         return response()->json([
             'data_user' => $user,
             "data_keranjang_layanan_open" => $keranjang_layanan_user_buka_2,
             "data_keranjang_close" => $keranjang_layanan_user_tutup_2
+        ]);
+    }
+
+    public function keranjang_layanan_hapus_aktif(Request $request)
+    {
+        keranjang_layanan::where('id', $request->id_keranjang_layanan)->delete();
+
+        return response()->json([
+            'message' => 'success',
+            'message 2' => 'Berhasil menghapus Keranjang Layanan'
+        ]);
+    }
+
+    public function keranjang_layanan_hapus_non_aktif(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+
+        keranjang_layanan::where('user_id', $user->id)->where('status', false)->delete();
+
+        return response()->json([
+            'message' => 'success',
+            'message 2' => 'Berhasil menghapus semua keranjang layanan yang tidak aktif user'
         ]);
     }
 }

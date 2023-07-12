@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use function PHPSTORM_META\map;
 
+use Illuminate\Support\Facades\Validator;
+
 class ReservasiController extends Controller
 {
 
@@ -48,48 +50,55 @@ class ReservasiController extends Controller
             "reservasi_user_complete" => $reservasi_user_komplit    //belum bisa kita kembalikan karena akan menambahkan 
         ]);
     }
+
+
     public function reservasi_tambah(Request $request)
     {
-        //diasumsikan bahwa data layanan dan data operasi tidak false
-        $user = User::where('email', $request->email)->first();
+        // 1. cek kelengapan request --------------------------------------------------------------------
+        $validator = Validator::make($request->all(), [
+            'email' => 'required',
+            'id_operasi' => 'required',
+            'id_layanan' => 'required'
+        ]);
 
-        $reservasi_user_cek = Reservasi::where([
-            ["user_id", $user->id],
-            ["layanan_id", $request->layanan_id],
-            ["operasi_id", $request->operasi_id],
-        ])->first();
-
-        if ($reservasi_user_cek != []) {
+        if ($validator->fails()) {
             return response()->json([
-                "message" => "failed",
-                "message_2" => "reservasi sudah ada dalam layanan anda"
+                'message' => 'failed',
+                'error' => $validator->errors()
             ]);
         }
 
+        //2. saya asumsikan bahwa operasi dan layanan sudah (true) dapat dipesan dan operasi tidak digunakan
+        $user = User::where('email', $request->email)->first();
+        $jadwal_operasi_id = operasi::where('id', $request->id_operasi)->first()->jadwal_operasi_id;
+
+
+        // 3. menambah data reservasi ---------------------------------------------------------------
         Reservasi::create([
+            "jadwal_operasi_id" => $jadwal_operasi_id,
             "user_id" => $user->id,
-            "layanan_id" => $request->layanan_id,
-            "operasi_id" => $request->operasi_id,
+            "layanan_id" => $request->id_layanan,
+            "operasi_id" => $request->id_operasi,
             "status" => "antri"
         ]);
 
-        // meng-update data operasi
-        operasi::where('id', $request->operasi_id)->update(['status' => 'dibooking']); //fixx
+        // 4. update operasi untuk tidak dapat lagi dipesan
+        operasi::where('id', $request->id_operasi)->update(['status' => 'dibooking']);
 
-        // // // // menghapus data keranjang layanan user yang reservasi
+        // 5.1 menghapus data keranjang layanan user yang reservasi
         keranjang_layanan::where([
             ['user_id', $user->id],
-            ['layanan_id', $request->layanan_id]
+            ['layanan_id', $request->id_layanan]
         ])->delete();
 
-        // // // menghapus data keranjang operasi user       
+        // 5.2 menghapus data keranjang operasi user       
         keranjang_operasi::where([
             ['user_id', $user->id],
-            ['operasi_id', $request->operasi_id]
+            ['operasi_id', $request->id_operasi]
         ])->delete();
 
-        // // mengupdate seluruhh keranjang operasi semua user
-        keranjang_operasi::where('operasi_id', $request->operasi_id)->update(['status' => false]);
+        // 6. mengupdate seluruhh keranjang operasi semua user
+        keranjang_operasi::where('operasi_id', $request->id_operasi)->update(['status' => false]);
 
         return response()->json([
             "message" => "success",

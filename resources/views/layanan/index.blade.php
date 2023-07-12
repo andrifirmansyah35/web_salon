@@ -66,8 +66,8 @@
                                         data-target="#modal-status-{{ $lyn->slug }}">
                                         Ubah Status
                                     </button>
-                                    <a href="/layanan/{{ $lyn->slug }}"
-                                        class="btn btn-info text-decoration-none">detail</a>
+                                    {{-- <a href="/layanan/{{ $lyn->slug }}"
+                                        class="btn btn-info text-decoration-none">detail</a> --}}
                                     <a href="/layanan/{{ $lyn->slug }}/edit" class="btn btn-warning">update</a>
 
                                 </td>

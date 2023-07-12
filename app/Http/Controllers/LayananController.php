@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\layanan;
 use App\Models\kategori_layanan;
+use App\Models\keranjang_layanan;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class LayananController extends Controller
@@ -127,9 +128,13 @@ class LayananController extends Controller
         if ($layanan->status == true) {
             $layanan->status = false;
             $layanan->save();
+
+            keranjang_layanan::where('layanan_id', $layanan->id)->update(['status' => false]);
         } else if ($layanan->status == false) {
             $layanan->status = true;
             $layanan->save();
+
+            keranjang_layanan::where('layanan_id', $layanan->id)->update(['status' => true]);
         }
         return redirect('/layanan');
     }

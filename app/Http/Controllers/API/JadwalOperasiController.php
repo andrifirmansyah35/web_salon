@@ -8,17 +8,31 @@ use App\Models\keranjang_operasi;
 use App\Models\operasi;
 use App\Models\user;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 
 class JadwalOperasiController extends Controller
 {
     public function cari_jadwal(Request $request)
     {
+        // 1. jika request jadwal lampau maka fitur cari jadwal di berhentikan -----------------------
+        $tanggal_besok     = date('Y-m-d', mktime(0, 0, 0, date("n"), date("j") + 1, date("Y")));
+        $tanggal_request = date($request->tahun . "-" . $request->bulan . "-" . $request->hari);
+
+        if ($tanggal_besok > $tanggal_request) {
+            return response()->json([
+                "message_1" => "tidak dapat mencari jadwal lampau",
+                "message_2" => "minimal pencarian 2 hari dari hari ini",
+                "tanggal request" => $tanggal_request,
+                "tanggal besok" => $tanggal_besok
+            ]);
+        }
+
         $tanggal_operasi = jadwal_operasi::where('status', true)->whereDate('tanggal', date($request->tahun . "-" . $request->bulan . "-" . $request->hari))->first();
 
-        if ($tanggal_operasi == null) {
+        if ($tanggal_operasi == []) {
             return response()->json([
-                'message' => 'jadwal tidak ditemukan',
+                'message' => 'jadwal operasional kosong',
             ]);
         }
 
@@ -33,12 +47,33 @@ class JadwalOperasiController extends Controller
 
     public function keranjang_operasi_tambah(Request $request)
     {
-        // diasumsikan data yang dikirimkan adalah data operasi sudah ada dalam table(tidak perlu cek)
+        $validator = Validator::make($request->all(), [
+            'email' => 'required',
+            'id_operasi' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'failed',
+                'error' => $validator->errors()
+            ]);
+        }
+        //1.  cek email dan cek
         $user = User::where('email', $request->email)->first();
-        $user_keranjang_operasi_cek = keranjang_operasi::where([['user_id', $user->id], ['operasi_id', $request->operasi_id]])->first();
 
-        // return $user_keranjang_operasi_cek;
+        // 2. validasi daya keranjang
+        //  ctt : data yang masuk adalah data operasi yang sudah dibooking
+        $cek_operasi_status_booking = operasi::where('id', $request->id_operasi)->first();
 
+        if ($cek_operasi_status_booking->status == 'dibooking') {
+            return response()->json([
+                'messsage' => "failed",
+                "message_2" => "jadwal operasional sudah dibookiing"
+            ]);
+        }
+
+        // 3. validasi data keranjang 2
+        $user_keranjang_operasi_cek = keranjang_operasi::where([['user_id', $user->id], ['operasi_id', $request->id_operasi]])->first();
         if ($user_keranjang_operasi_cek != []) {
             return response()->json([
                 'messsage' => "failed",
@@ -46,7 +81,7 @@ class JadwalOperasiController extends Controller
             ]);
         }
 
-        keranjang_operasi::create(['user_id' => $user->id, 'operasi_id' => $request->operasi_id]);
+        keranjang_operasi::create(['user_id' => $user->id, 'operasi_id' => $request->id_operasi]);
 
         return response()->json([
             'messsage' => "success",
@@ -57,7 +92,6 @@ class JadwalOperasiController extends Controller
     public function keranjang_operasi(Request $request)
     {
         $user = User::where('email', $request->email)->first();
-        // keranjang_operasi::where('user_id', $user->id)->get();
 
         $keranjang_operasi_user_buka = keranjang_operasi::where([
             ['user_id', $user->id],
@@ -80,7 +114,7 @@ class JadwalOperasiController extends Controller
     {
         $user = User::where('email', $request->email)->first();
 
-        $keranjang_operasi_user_terblokir = keranjang_operasi::where([
+        keranjang_operasi::where([
             ['user_id', $user->id],
             ['status', false]
         ])->delete();
@@ -91,7 +125,7 @@ class JadwalOperasiController extends Controller
         ]);
     }
 
-    public function keranjang_operasi_user_hapus(Request $request)
+    public function keranjang_operasi_user_hapus(Request $request)  //tidak digunakan
     {
         $keranjang_operasi = keranjang_operasi::where('id', $request->keranjang_operasi_id)->delete();
 
