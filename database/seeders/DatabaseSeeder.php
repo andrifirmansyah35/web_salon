@@ -12,7 +12,7 @@ use App\Models\kategori_operasi;
 use App\Models\skema_operasi;
 use App\Models\jadwal_operasi;
 use App\Models\operasi;
-use App\Models\Reservasi;
+use App\Models\reservasi;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder

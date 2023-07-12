@@ -15,7 +15,7 @@ use App\Http\Controllers\LaporanController;
 
 // mencoba menggunakan email 
 use App\Http\Controllers\EmailTestController;
-
+use App\Http\Controllers\StorageController;
 use App\Models\User;
 use App\Models\layanan;
 use App\Models\Reservasi;
@@ -29,6 +29,8 @@ route::get('/email-test-kedua', [EmailTestController::class, 'kedua']);
 
 // sengaja belum digunakan karena untuk dapat menggunakan 
 Route::get('/', [HomeController::class, 'index']);
+
+Route::get('storage/{slug}/{file_name}', [StorageController::class, 'file']);
 
 Route::middleware(['auth'])->group(function () {
 
