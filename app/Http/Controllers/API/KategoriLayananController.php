@@ -11,7 +11,7 @@ class KategoriLayananController extends Controller
 {
     public function index()
     {
-        $kategori_all = kategori_layanan::all();
+        $kategori_all = kategori_layanan::inRandomOrder()->get();
 
         $data_kategori_layanan = [];
 
