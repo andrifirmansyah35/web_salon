@@ -14,6 +14,11 @@ class layanan extends Model
     protected $table = 'layanan';
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'id' => 'int',
+        'status' => 'boolean'
+    ];
+
     public function sluggable(): array
     {
         return [

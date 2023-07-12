@@ -14,6 +14,10 @@ class kategori_layanan extends Model
     protected $guarded = ['id'];
     protected $table = 'kategori_layanan';
 
+    protected $casts = [
+        'id' => 'int',
+    ];
+
     public function sluggable(): array
     {
         return [

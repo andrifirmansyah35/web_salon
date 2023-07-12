@@ -27,6 +27,7 @@
 <div class="header-laporan">
     <center>
         <h2>RCSM BANTUL</h2>
+        <p>Jl. Bantul No.13, Monggang, Pendowoharjo, Kec. Sewon, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55186</p>
     </center>
 </div>
 
