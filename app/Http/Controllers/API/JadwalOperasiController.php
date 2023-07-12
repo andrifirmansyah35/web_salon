@@ -127,7 +127,7 @@ class JadwalOperasiController extends Controller
 
     public function keranjang_operasi_user_hapus(Request $request)  //tidak digunakan
     {
-        $keranjang_operasi = keranjang_operasi::where('id', $request->keranjang_operasi_id)->delete();
+        $keranjang_operasi = keranjang_operasi::where('id', $request->id_keranjang_operasi)->delete();
 
         return response()->json([
             'message' => 'success',
