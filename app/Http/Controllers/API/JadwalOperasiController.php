@@ -116,7 +116,7 @@ class JadwalOperasiController extends Controller
 
         keranjang_operasi::where([
             ['user_id', $user->id],
-            ['status', false]
+            ['status', true]
         ])->delete();
 
         return response()->json([
