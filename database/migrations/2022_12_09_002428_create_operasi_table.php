@@ -18,7 +18,7 @@ class CreateOperasiTable extends Migration
             $table->foreignId('jadwal_operasi_id');
             $table->string('waktu_mulai');
             $table->string('waktu_selesai');
-            $table->enum('status', ['kosong', 'dibooking'])->default('kosong');  //karena bisa dipesan bisa juga tidak dipesan
+            $table->boolean('status')->default(true);  //karena bisa dipesan bisa juga tidak dipesan
             $table->timestamps();
         });
     }

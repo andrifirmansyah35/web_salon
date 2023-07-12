@@ -11,4 +11,9 @@ class operasi extends Model
 
     protected $table = 'operasi';
     protected $guarded = ['id'];
+
+    protected $casts = [
+        'id' => 'int',
+        'status' => 'boolean'
+    ];
 }

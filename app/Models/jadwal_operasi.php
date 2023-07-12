@@ -12,6 +12,11 @@ class jadwal_operasi extends Model
     protected $table = 'jadwal_operasi';
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'status' => 'boolean',
+        'id' => 'int'
+    ];
+
     // public function operasi()
     // {
     //     return $this->hasMany(operasi::class);

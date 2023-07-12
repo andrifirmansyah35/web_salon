@@ -67,12 +67,12 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
             aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-solid fa-briefcase"></i>
-            <span>Operation</span>
+            <span>Operasional</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/kategori_operasi">Kategori Operasi</a>
-                <a class="collapse-item" href="/jadwal_operasi">Jadwal Operasi</a>
+                <a class="collapse-item" href="/kategori_operasi">Kategori Operasional</a>
+                <a class="collapse-item" href="/jadwal_operasi">Jadwal Operasional</a>
             </div>
         </div>
     </li>

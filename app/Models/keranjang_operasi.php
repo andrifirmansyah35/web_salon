@@ -11,4 +11,9 @@ class keranjang_operasi extends Model
     protected $table = 'keranjang_operasi';
 
     protected $guarded = ['id'];
+
+    protected $casts = [
+        'id' => 'int',
+        'status' => 'boolean'
+    ];
 }

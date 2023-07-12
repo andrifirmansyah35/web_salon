@@ -16,12 +16,16 @@ class kategori_operasi extends Model
     protected $guarded = ['id'];
     protected $table = 'kategori_operasi';
 
+    protected $casts = [
+        'id' => 'int'
+    ];
+
     public function sluggable(): array
     {
         return [
             'slug' => [
                 'source' => 'nama'
-            ] 
+            ]
         ];
     }
 
@@ -31,7 +35,8 @@ class kategori_operasi extends Model
     }
 
     // relationship
-    public function skema_operasi(){
+    public function skema_operasi()
+    {
         return $this->hasMany(skema_operasi::class);
     }
 }

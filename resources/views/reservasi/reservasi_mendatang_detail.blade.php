@@ -54,7 +54,11 @@
                                 <td>{{ $r['waktu_mulai'] . '-' . $r['waktu_selesai'] }}</td>
                                 <td>{{ $r['pelangan'] }}</td>
                                 <td>{{ $r['layanan'] }}</td>
-                                <td>{{ $r['status'] }}</td>
+                                @if ($r['status'] == false)
+                                    <td>kosong</td>
+                                @else
+                                    <td>dibooking</td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>

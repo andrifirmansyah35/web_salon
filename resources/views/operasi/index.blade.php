@@ -75,7 +75,12 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $op->waktu_mulai }}</td>
                                 <td>{{ $op->waktu_selesai }}</td>
-                                <td>{{ $op->status }}</td>
+                                @if ($op->status == false)
+                                    <td>kosong</td>
+                                @else
+                                    <td>dibooking</td>
+                                @endif
+
                             </tr>
                         @endforeach
                     </tbody>

@@ -13,6 +13,10 @@ class Reservasi extends Model
     protected $table = 'reservasi';
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'id' => 'int'
+    ];
+
     public function user_member()
     {
         return $this->belongsTo(User::class, 'user_id');
