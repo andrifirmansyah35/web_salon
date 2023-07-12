@@ -55,7 +55,8 @@ class KeranjangLayananController extends Controller
                 'id_keranjang_layanan' => $keranjang->id,
                 'status' => $keranjang->status,
                 'layanan' => $layanan->nama,
-                'kategori_layanan' => $layanan->kategori_layanan->nama
+                'kategori_layanan' => $layanan->kategori_layanan->nama,
+                'harga' => $layanan->harga
             ];
         });
 
@@ -66,7 +67,8 @@ class KeranjangLayananController extends Controller
                 'status' => $keranjang->status,
                 // 'layanan' => layanan::where('id', $keranjang->layanan_id)->first()->nama,
                 'layanan' => $layanan->nama,
-                'kategori_layanan' => $layanan->kategori_layanan->nama
+                'kategori_layanan' => $layanan->kategori_layanan->nama,
+                'harga' => $layanan->harga
             ];
         });
 

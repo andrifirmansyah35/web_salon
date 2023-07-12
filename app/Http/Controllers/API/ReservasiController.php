@@ -36,9 +36,12 @@ class ReservasiController extends Controller
 
         $reservasi_user = Reservasi::where('user_id', $user->id)->get();
 
+
+
         $reservasi_user_komplit = $reservasi_user->map(function ($data) {
+            // $layanan = layanan::where('id')
             return  [
-                "user_id" => $data->user_member->name,
+                "user_id" => $data->user_id,
                 "layanan_id" => $data->layanan_id,
                 "operasi_id" => $data->operasi_id,
                 "status" => $data->status,
