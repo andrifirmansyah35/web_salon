@@ -82,8 +82,8 @@ class ReservasiController extends Controller
             "status" => "antri"
         ]);
 
-        // 4. update operasi untuk tidak dapat lagi dipesan
-        operasi::where('id', $request->id_operasi)->update(['status' => 'dibooking']);
+        // 4. update operasi untuk tidak dapat lagi dipesan 'dengan status true yg berarti sudah dibooking'
+        operasi::where('id', $request->id_operasi)->update(['status' => true]);  //dibooking
 
         // 5.1 menghapus data keranjang layanan user yang reservasi
         keranjang_layanan::where([

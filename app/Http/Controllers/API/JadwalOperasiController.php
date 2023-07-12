@@ -65,7 +65,7 @@ class JadwalOperasiController extends Controller
         //  ctt : data yang masuk adalah data operasi yang sudah dibooking
         $cek_operasi_status_booking = operasi::where('id', $request->id_operasi)->first();
 
-        if ($cek_operasi_status_booking->status == 1) {
+        if ($cek_operasi_status_booking->status == true) {
             return response()->json([
                 'messsage' => "failed",
                 "message_2" => "jadwal operasional sudah dibookiing"
@@ -95,12 +95,12 @@ class JadwalOperasiController extends Controller
 
         $keranjang_operasi_user_buka = keranjang_operasi::where([
             ['user_id', $user->id],
-            ['status', 0]
+            ['status', false]
         ])->get();
 
         $keranjang_operasi_user_terblokir = keranjang_operasi::where([
             ['user_id', $user->id],
-            ['status', 1]
+            ['status', true]
         ])->get();
 
         return response()->json([
