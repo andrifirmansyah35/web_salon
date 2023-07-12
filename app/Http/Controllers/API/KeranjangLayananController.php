@@ -43,7 +43,7 @@ class KeranjangLayananController extends Controller
 
     public function keranjang_layanan(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
+        $user = auth()->user();
 
         $keranjang_layanan_user_buka = keranjang_layanan::where([['user_id', $user->id], ['status', true]])->get();
         $keranjang_layanan_user_tutup = keranjang_layanan::where([['user_id', $user->id], ['status', false]])->get();
