@@ -109,7 +109,8 @@ class ReservasiController extends Controller
             $layanan_nama = "-";
 
             // 3. mencari data user jika operasional  dibooking
-            if ($p->booking = "booking") {
+            if ($p->status == true) {
+                // if ($p->booking == true) {
                 $reservasi = reservasi::where('jadwal_operasi_id', $jadwal_operasi->id)
                     ->where('operasi_id', $p->id)
                     ->where('status', 'antri')->first();

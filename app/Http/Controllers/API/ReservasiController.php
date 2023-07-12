@@ -19,13 +19,16 @@ use Illuminate\Support\Facades\Validator;
 class ReservasiController extends Controller
 {
 
-    public function reservasi_user_daftar(Request $request)
+    public function reservasi_user_daftar()
     {
         $user = auth()->user();
 
+        // 1.cek apakah ada data reservasi lampau yang berstatus antri
         $tanggal_hari_ini = date('Y-m-d');
+        // 1.1 mendapatkan data lampau -------------------------------------
+        
 
-        $cek_reservasi_lampau = Reservasi::whereDate('tanggal', '<', $tanggal_hari_ini)->get();
+        $cek_reservasi_lampau = Reservasi::whereDate('tanggal', '<', $tanggal_hari_ini)->get(); //salahhhhh
 
         if ($cek_reservasi_lampau != []) {
             foreach ($cek_reservasi_lampau as $rt) {
@@ -35,8 +38,6 @@ class ReservasiController extends Controller
         }
 
         $reservasi_user = Reservasi::where('user_id', $user->id)->get();
-
-
 
         $reservasi_user_komplit = $reservasi_user->map(function ($data) {
             // $layanan = layanan::where('id')
