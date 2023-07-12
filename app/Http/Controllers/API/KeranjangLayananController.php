@@ -49,18 +49,24 @@ class KeranjangLayananController extends Controller
         $keranjang_layanan_user_tutup = keranjang_layanan::where([['user_id', $user->id], ['status', false]])->get();
 
         $keranjang_layanan_user_buka_2 = $keranjang_layanan_user_buka->map(function ($keranjang, $key) {
+            $layanan = layanan::where('id', $keranjang->layanan_id)->first();
+
             return [
                 'id_keranjang_layanan' => $keranjang->id,
                 'status' => $keranjang->status,
-                'layanan' => layanan::where('id', $keranjang->layanan_id)->first()->nama
+                'layanan' => $layanan->nama,
+                'kategori_layanan' => $layanan->kategori_layanan->nama
             ];
         });
 
         $keranjang_layanan_user_tutup_2 = $keranjang_layanan_user_tutup->map(function ($keranjang, $key) {
+            $layanan = layanan::where('id', $keranjang->layanan_id)->first();
             return [
                 'id_keranjang_layanan' => $keranjang->id,
                 'status' => $keranjang->status,
-                'layanan' => layanan::where('id', $keranjang->layanan_id)->first()->nama
+                // 'layanan' => layanan::where('id', $keranjang->layanan_id)->first()->nama,
+                'layanan' => $layanan->nama,
+                'kategori_layanan' => $layanan->kategori_layanan->nama
             ];
         });
 

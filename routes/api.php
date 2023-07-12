@@ -41,8 +41,6 @@ Route::middleware(['middleware' => 'auth:sanctum'])->group(function () {
     Route::get('/kategori-layanan-layanan-all', [KategoriLayananController::class, 'kategori_layanan_layanan_all']);
     // Route::get('/layanan', [LayananController::class, 'detail']);
 
-    // ---------------------------------------------------------------------------------------------------------------------------
-
     // api operasi ---------------------------------------------------------------------------------------------------------------
     Route::post('/cari-jadwal-operasi', [JadwalOperasiController::class, 'cari_jadwal']);
     Route::post('/keranjang-operasi-tambah', [JadwalOperasiController::class, 'keranjang_operasi_tambah']);
