@@ -21,7 +21,7 @@ class ReservasiController extends Controller
 
     public function reservasi_user_daftar(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
+        $user = auth()->user();
 
         $tanggal_hari_ini = date('Y-m-d');
 
@@ -69,7 +69,7 @@ class ReservasiController extends Controller
         }
 
         //2. saya asumsikan bahwa operasi dan layanan sudah (true) dapat dipesan dan operasi tidak digunakan
-        $user = User::where('email', $request->email)->first();
+        $user = auth()->user();
         $jadwal_operasi_id = operasi::where('id', $request->id_operasi)->first()->jadwal_operasi_id;
 
 
@@ -108,7 +108,7 @@ class ReservasiController extends Controller
 
     public function reservasi_pengajuan_batal(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
+        $user = auth()->user();
 
         Reservasi::where(
             ['id' => $request->reservasi_id],
@@ -123,7 +123,7 @@ class ReservasiController extends Controller
 
     public function reservasi_hapus(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
+        $user = auth()->user();
 
         Reservasi::where(
             ['id' => $request->reservasi_id],

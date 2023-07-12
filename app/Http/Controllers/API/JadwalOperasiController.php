@@ -59,7 +59,7 @@ class JadwalOperasiController extends Controller
             ]);
         }
         //1.  cek email dan cek
-        $user = User::where('email', $request->email)->first();
+        $user = auth()->user();
 
         // 2. validasi daya keranjang
         //  ctt : data yang masuk adalah data operasi yang sudah dibooking
@@ -91,7 +91,7 @@ class JadwalOperasiController extends Controller
 
     public function keranjang_operasi(Request $request) //mumet gaming
     {
-        $user = User::where('email', $request->email)->first();
+        $user = auth()->user();
 
         $keranjang_operasi_user_buka = keranjang_operasi::where([
             ['user_id', $user->id],
@@ -112,7 +112,7 @@ class JadwalOperasiController extends Controller
 
     public function keranjang_operasi_hapus_terblokir(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
+        $user = auth()->user();
 
         keranjang_operasi::where([
             ['user_id', $user->id],
