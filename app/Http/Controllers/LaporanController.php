@@ -34,16 +34,6 @@ class LaporanController extends Controller
 
         // $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->where('status', 'antri')->get();
 
-        // // xxx mengubah data antri ke data tidak datang------------------------------------------------------------------------
-        // if ($reservasi_tanggal != []) {
-        //     foreach ($reservasi_tanggal as $rt) {
-        //         Reservasi::where('id', $rt->id)
-        //             ->update(['status' => 'tidak datang']);
-        //         $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->where('status', 'tidak datang')->get();
-        //     }
-        // }
-
-
         // 0. data awal---------------------------------------------------------------------------------------------------------
         // $jadwal_operasi = jadwal_operasi::where('status', false)->get();
         $jadwal_operasi = null;

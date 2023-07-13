@@ -12,6 +12,14 @@ class JadwalOperasiController extends Controller
 {
     public function index()
     {
+        // A.0 fitur pengubah data lampau antri menjadi tidak datang && jika tanggal lampau tanggal akan diubah menjadi false -----------------------------------------------------------------
+        $jadwal_lampau = jadwal_operasi::whereDate('tanggal', '<', date('Y-m-d'));
+
+        // A.1 mengubah jadwal lampau bernilai false ----------------------------------------------------------------------------
+        $jadwal_lampau->where('status', true)->update(['status' => false]);
+
+        // =============================================================================================================================
+
         return view('jadwal_operasi.index', [
             'title' => 'Jadwal Operasi',
             'kategori_operasi_all' => kategori_operasi::latest()->get(),
