@@ -86,10 +86,12 @@
 
                                 <td>
 
-                                    <button type="button" class="btn btn-warning" data-toggle="modal"
-                                        data-target="#modal-jadwal-ubah-{{ $jo->tanggal }}">
-                                        ubah status
-                                    </button>
+                                    @if ($jo->tanggal > date('Y-m-d'))
+                                        <button type="button" class="btn btn-warning" data-toggle="modal"
+                                            data-target="#modal-jadwal-ubah-{{ $jo->tanggal }}">
+                                            ubah status
+                                        </button>
+                                    @endif
 
 
                                     <a href="/jadwal_operasi_detail/{{ $jo->tanggal }}"
