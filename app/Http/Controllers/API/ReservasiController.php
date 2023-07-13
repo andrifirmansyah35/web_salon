@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\keranjang_layanan;
 use App\Models\keranjang_operasi;
+use App\Models\layanan;
 use App\Models\operasi;
 use App\Models\reservasi;
 use App\Models\User;
@@ -40,11 +41,18 @@ class ReservasiController extends Controller
         $reservasi_user = Reservasi::where('user_id', $user->id)->get();
 
         $reservasi_user_komplit = $reservasi_user->map(function ($data) {
-            // $layanan = layanan::where('id')
+
+
+            $operasi_user = operasi::where('id', $data->operasi_id)->first();
+
             return  [
                 "user_id" => $data->user_id,
+                "user_nama" => User::where('id', $data->user_id)->first()->name,
                 "layanan_id" => $data->layanan_id,
+                "layanan_nama" => layanan::where('id', $data->layanan_id)->first()->nama,
                 "operasi_id" => $data->operasi_id,
+                "operasi_mulai" => $operasi_user->waktu_mulai,
+                "operasi_akhir" => $operasi_user->waktu_selesai,
                 "status" => $data->status,
             ];
         });
