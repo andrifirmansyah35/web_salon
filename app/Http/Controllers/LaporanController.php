@@ -16,6 +16,34 @@ class LaporanController extends Controller
 {
     public function laporan_reservasi()
     {
+        // A.0 fitur pengubah data lampau antri menjadi tidak datang && jika tanggal lampau tanggal akan diubah menjadi false -----------------------------------------------------------------
+        $jadwal_lampau = jadwal_operasi::whereDate('tanggal', '<', date('Y-m-d'));
+
+        // A.1 mengubah jadwal lampau bernilai false ----------------------------------------------------------------------------
+        $jadwal_lampau->where('status', true)->update(['status' => false]);
+
+        // A.2 mengubah reservasi dengan jadwal itu yang masih antri menjadi tidak datang
+        $jadwal_lampau_a = jadwal_operasi::whereDate('tanggal', '<', date('Y-m-d'))->where('status', false)->get();
+
+        foreach ($jadwal_lampau_a as $j) {
+            reservasi::where('jadwal_operasi_id', $j->id)->where('status', 'antri')->update(['status' => 'tidak datang']);
+        }
+        // =============================================================================================================================
+
+        // return jadwal_operasi::whereDate('tanggal', '<', date('Y-m-d'))->get();
+
+        // $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->where('status', 'antri')->get();
+
+        // // xxx mengubah data antri ke data tidak datang------------------------------------------------------------------------
+        // if ($reservasi_tanggal != []) {
+        //     foreach ($reservasi_tanggal as $rt) {
+        //         Reservasi::where('id', $rt->id)
+        //             ->update(['status' => 'tidak datang']);
+        //         $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->where('status', 'tidak datang')->get();
+        //     }
+        // }
+
+
         // 0. data awal---------------------------------------------------------------------------------------------------------
         // $jadwal_operasi = jadwal_operasi::where('status', false)->get();
         $jadwal_operasi = null;
@@ -24,6 +52,12 @@ class LaporanController extends Controller
             $waktu_awal = session()->get('laporan_reservasi_tanggal_awal');
             $waktu_akhir = session()->get('laporan_reservasi_tanggal_akhir');
             $laporan_status = session()->get('laporan_status');
+
+            // jika waktu akhir melebihi hari sekarang ---(maka ubah waktu akhir)---------------------------------
+
+            if ($waktu_akhir >= date('Y-m-d')) {
+                $waktu_akhir = date('Y-m-d', strtotime("-1 day", strtotime(date('Y-m-d'))));
+            }
 
             $jadwal_operasi = jadwal_operasi::whereBetween('tanggal', [$waktu_awal, $waktu_akhir])->where('status', false)
                 ->get();
@@ -36,7 +70,7 @@ class LaporanController extends Controller
             ]);
         }
 
-        // // 2. cari data operasi dari data jadwal---------------------------------------------------------------------------------
+        // 2. cari data operasi dari data jadwal---------------------------------------------------------------------------------
         $laporan_reservasi = [];
         $daftar_jadwal_operasi = []; //nanti akan menyimpan array tanggal :: supaya perulagan reservasi tidak terlalu berat
 
@@ -51,21 +85,21 @@ class LaporanController extends Controller
                 "status" => $j->status
             ];
 
-            // $reservasi_tanggal = [];
             $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->get();
 
-            if ($laporan_status == "reservasi selesai") {
+            if ($laporan_status == "reservasi selesai") {   //tergantung button
                 $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->where('status', 'selesai')->get();
             } else if ($laporan_status == "reservasi tidak datang") {
-                $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->where('status', 'antri')->get();
-                // mengubah data antri ke data tidak datang-------------------------------------------------------
-                if ($reservasi_tanggal != []) {
-                    foreach ($reservasi_tanggal as $rt) {
-                        Reservasi::where('id', $rt->id)
-                            ->update(['status' => 'tidak datang']);
-                        $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->where('status', 'tidak datang')->get();
-                    }
-                }
+                // $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->where('status', 'antri')->get();
+
+                // // xxx mengubah data antri ke data tidak datang------------------------------------------------------------------------
+                // if ($reservasi_tanggal != []) {
+                //     foreach ($reservasi_tanggal as $rt) {
+                //         Reservasi::where('id', $rt->id)
+                //             ->update(['status' => 'tidak datang']);
+                //         $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->where('status', 'tidak datang')->get();
+                //     }
+                // }
                 $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->where('status', 'tidak datang')->get();
             } else {
                 $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->get();
@@ -105,7 +139,7 @@ class LaporanController extends Controller
         return redirect('/laporan_reservasi');
     }
 
-    public function print_laporan_reservasi()   //on progress---------------------
+    public function print_laporan_reservasi()
     {
         $jadwal_operasi = jadwal_operasi::where('status', false)
             ->get();
@@ -147,7 +181,6 @@ class LaporanController extends Controller
                 $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->where('status', 'selesai')->get();
             } else if ($laporan_status == "reservasi tidak datang") {
                 $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->where('status', 'antri')->get();
-                // catatan masih perlu direvisi--------------------------------------------------------------------
             } else {
                 $reservasi_tanggal = Reservasi::where('jadwal_operasi_id', $j->id)->get();
             }

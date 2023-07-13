@@ -104,6 +104,8 @@ class JadwalOperasiController extends Controller
 
     public function hapusJadwal(jadwal_operasi $jadwal_operasi)
     {
+        // syarat jadwal bisa dihapus adalah jadwal bernilai false dan belum ada pesanan terhadap jadwal tersebut
+
         return [
             "message" => 'fitur hapus pada jadwal operasi masih dalam pengerjaan',
             "data" => $jadwal_operasi

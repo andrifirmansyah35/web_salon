@@ -224,6 +224,7 @@ class DatabaseSeeder extends Seeder
             'tahun' => '2023',
             'status' => false,
         ]);
+
         // diperuntukan untuk reservasi mendatang
         jadwal_operasi::create([
             'tanggal' => '2023-07-20',
@@ -231,7 +232,7 @@ class DatabaseSeeder extends Seeder
             'hari' => '20',
             'bulan' => '07',
             'tahun' => '2023',
-            'status' => false,
+            'status' => true,
         ]);
 
         jadwal_operasi::create([
@@ -240,7 +241,7 @@ class DatabaseSeeder extends Seeder
             'hari' => '21',
             'bulan' => '07',
             'tahun' => '2023',
-            'status' => false,
+            'status' => true,
         ]);
         //6. dummy operasi dari jadwaloperasi diatas------------------------------------------------------------------------------
         //ctt : false berarti kosong || true dibooking

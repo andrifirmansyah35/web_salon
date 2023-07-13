@@ -95,13 +95,13 @@
                                     <a href="/jadwal_operasi_detail/{{ $jo->tanggal }}"
                                         class="btn btn-info border-0">detail</a>
 
-                                    <form action="/jadwal_operasi_hapus/{{ $jo->tanggal }}" method="POST"
+                                    {{-- <form action="/jadwal_operasi_hapus/{{ $jo->tanggal }}" method="POST"
                                         class="d-inline">
                                         @method('delete')
                                         @csrf
                                         <button class="btn btn-danger border-0"
                                             onclick="return confirm('Yakin Anda akan memnghapus?')"><span>hapus</span></button>
-                                    </form>
+                                    </form> --}}
                                 </td>
                             </tr>
                         @endforeach

@@ -86,7 +86,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('jadwal_operasi_status/{jadwal_operasi:tanggal}', [JadwalOperasiController::class, 'updateStatus']);
     Route::delete('jadwal_operasi_hapus/{jadwal_operasi:tanggal}', [JadwalOperasiController::class, 'hapusJadwal']);
 
-    Route::get('/jadwal_operasi_detail/{jadwal_operasi:tanggal}', [OperasiController::class, 'detail']);
+Route::get('/jadwal_operasi_detail/{jadwal_operasi:tanggal}', [OperasiController::class, 'detail']);
 
     // reservasi controller ------------------------------------------------------------------------------------------
     Route::get('/reservasi', [ReservasiController::class, 'reservasi']);

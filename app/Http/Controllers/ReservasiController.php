@@ -82,8 +82,11 @@ class ReservasiController extends Controller
 
         // 2. mendapatkan jumlah reservasi medatang
         $daftar_jadwal_operasi_mendatang = [];
+
         foreach ($jadwal_operasi as $j) {
-            $jumlah_reservasi = Reservasi::where('jadwal_operasi_id', $j->id)->count();
+            $jumlah_reservasi = Reservasi::where('jadwal_operasi_id', $j->id)->where('status', 'antri')->count();
+            // return Reservasi::where('jadwal_operasi_id', $j->id)->get();
+
             $daftar_jadwal_operasi_mendatang[] = [
                 'id' => $j->id,
                 'tanggal' => $j->tanggal,
@@ -104,13 +107,14 @@ class ReservasiController extends Controller
         $operasi = operasi::where('jadwal_operasi_id', $jadwal_operasi->id)->get();
         // 2. membat array operasi dan menambahkan data pelangan jika ada yg dipesan
         $jadwal_operasi_reservasi = [];
+
         foreach ($operasi as $p) {
             $pelangan_nama = "-";
             $layanan_nama = "-";
 
             // 3. mencari data user jika operasional  dibooking
             if ($p->status == true) {
-                // if ($p->booking == true) {
+                // 4.karena di data operasi status (true == booking) maka cek reservasi 
                 $reservasi = reservasi::where('jadwal_operasi_id', $jadwal_operasi->id)
                     ->where('operasi_id', $p->id)
                     ->where('status', 'antri')->first();
