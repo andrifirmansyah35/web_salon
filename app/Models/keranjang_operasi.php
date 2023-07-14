@@ -18,4 +18,14 @@ class keranjang_operasi extends Model
         'user_id' => 'int',
         'operasi_id' => 'int',
     ];
+
+    public function operasi()
+    {
+        return $this->belongsTo(operasi::class, 'operasi_id');
+    }
+
+    public function member()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

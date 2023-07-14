@@ -17,4 +17,9 @@ class operasi extends Model
         'status' => 'boolean',
         'jadwal_operasi_id' => 'int'
     ];
+
+    public function jadwal_operasi()
+    {
+        return $this->belongsTo(jadwal_operasi::class, 'jadwal_operasi_id');
+    }
 }

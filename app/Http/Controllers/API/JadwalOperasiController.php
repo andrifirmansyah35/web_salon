@@ -107,15 +107,40 @@ class JadwalOperasiController extends Controller
             ['status', false]
         ])->orderBy('id', 'desc')->get();
 
+        $keranjang_operasi_user_buka_2 = $keranjang_operasi_user_buka->map(function ($keranjang, $key) {
+            return [
+                'id' => $keranjang->id,
+                'status' => $keranjang->status,
+                'user_id' => $keranjang->user_id,
+                'user_nama' => $keranjang->member->name,
+                'operasi' => $keranjang->operasi->waktu_mulai . "-" . $keranjang->operasi->waktu_selesai,
+                'jadwal_operasi' => $keranjang->operasi->jadwal_operasi->tanggal
+            ];
+        });
+
+
+
         $keranjang_operasi_user_terblokir = keranjang_operasi::where([
             ['user_id', $user->id],
             ['status', true]
         ])->orderBy('id', 'desc')->get();
 
+        $keranjang_operasi_user_terblokir_2 = $keranjang_operasi_user_terblokir->map(function ($keranjang, $key) {
+            return [
+                'id' => $keranjang->id,
+                'status' => $keranjang->status,
+                'user_id' => $keranjang->user_id,
+                'user_nama' => $keranjang->member->name,
+                'operasi' => $keranjang->operasi->waktu_mulai . "-" . $keranjang->operasi->waktu_selesai,
+                'jadwal_operasi' => $keranjang->operasi->jadwal_operasi->tanggal
+            ];
+        });
+
+
         return response()->json([
             'message' => 'success',
-            'keranjang_operasi_buka' => $keranjang_operasi_user_buka,
-            'keranjang_operasi_terblokir' => $keranjang_operasi_user_terblokir
+            'keranjang_operasi_buka' => $keranjang_operasi_user_buka_2,
+            'keranjang_operasi_terblokir' => $keranjang_operasi_user_terblokir_2
         ]);
     }
 
