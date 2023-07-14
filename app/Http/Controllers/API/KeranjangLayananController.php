@@ -33,6 +33,7 @@ class KeranjangLayananController extends Controller
 
             $dataKeranjang = [
                 'id_keranjang_layanan' => $data->id,
+                'id_layanan' => $layanan->id,
                 'status' => $data->status,
                 'layanan' => $data->layanan->nama,
                 'kategori_layanan' => $kategori_layanan->nama,
@@ -64,6 +65,7 @@ class KeranjangLayananController extends Controller
 
             return [
                 'id_keranjang_layanan' => $keranjang->id,
+                'id_layanan' => $keranjang->layanan_id,
                 'status' => $keranjang->status,
                 'gambar_kategori_layanan' => $layanan->kategori_layanan->gambar,
                 'layanan' => $layanan->nama,

@@ -108,8 +108,8 @@ class ReservasiController extends Controller
         keranjang_operasi::where('operasi_id', $request->id_operasi)->update(['status' => false]);
 
         return response()->json([
-            "message" => "success",
-            "message_2" => "Berhasil menambahkan reservasi",
+            "status" => "success",
+            "message" => "Berhasil menambahkan reservasi",
         ]);
     }
 
@@ -123,8 +123,8 @@ class ReservasiController extends Controller
         )->update(['status' => 'dibatalkan']);
 
         return response()->json([
-            'message' => 'success',
-            'message_2' => 'berhasil '
+            'status' => 'success',
+            'message' => 'berhasil'
         ]);
     }
 
@@ -138,8 +138,11 @@ class ReservasiController extends Controller
         )->delete();
 
         return response()->json([
-            'message' => 'success',
-            'message_2' => 'berhasil menghapus'
+            'status' => 'success',
+            'message' => 'berhasil menghapus'
+
+            // apa ini coo jelek bgt namanya awokwokawokwaoaw
+            // 'message_2' => 'berhasil menghapus'
         ]);
     }
 }

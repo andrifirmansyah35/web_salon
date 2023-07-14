@@ -95,6 +95,7 @@ class JadwalOperasiController extends Controller
         $jadwalOperasi = $keranjangOperasi->jadwal_operasi;
         $dataJadwal = [
             'id' => $data->id,
+            'id_operasi' => $data->operasi->id,
             'status' => $data->status,
             'user_id' => $data->user_id,
             'user_nama' => $data->member->name,
@@ -128,6 +129,7 @@ class JadwalOperasiController extends Controller
         $keranjang_operasi_user_buka_2 = $keranjang_operasi_user_buka->map(function ($keranjang, $key) {
             return [
                 'id' => $keranjang->id,
+                'id_operasi' => $keranjang->operasi->id,
                 'status' => $keranjang->status,
                 'user_id' => $keranjang->user_id,
                 'user_nama' => $keranjang->member->name,
