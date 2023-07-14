@@ -20,7 +20,7 @@ class CreateJadwalOperasiTable extends Migration
             $table->string('hari', 2);
             $table->string('bulan', 2);
             $table->string('tahun', 4);
-            $table->boolean('status');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }
