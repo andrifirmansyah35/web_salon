@@ -28,11 +28,21 @@ class KeranjangLayananController extends Controller
                 "layanan_id" => $layanan->id,
                 "status" => true
             ];
-            keranjang_layanan::create($data_keranjang_layanan);
+            $data = keranjang_layanan::create($data_keranjang_layanan);
+            $kategori_layanan = kategori_layanan::where('id', $data->layanan->kategori_layanan_id)->first();
 
+            $dataKeranjang = [
+                'id_keranjang_layanan' => $data->id,
+                'status' => $data->status,
+                'layanan' => $data->layanan->nama,
+                'kategori_layanan' => $kategori_layanan->nama,
+                'gambar_kategori_layanan' => $kategori_layanan->gambar,
+                'harga' => $data->layanan->harga,
+            ];
             return response()->json([
                 'message' => 'success',
                 'alert' => 'layanan berhasil ditambahkan dikeranjang anda',
+                'data' => $dataKeranjang,
             ]);
         }
 
