@@ -56,7 +56,6 @@ class JadwalOperasiController extends Controller
     public function keranjang_operasi_tambah(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required',
             'id_operasi' => 'required',
         ]);
 
