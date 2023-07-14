@@ -17,7 +17,7 @@ class CreateKeranjangOperasisTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('operasi_id');
-            $table->boolean('status')->default(true);
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

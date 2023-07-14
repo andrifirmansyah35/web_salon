@@ -99,7 +99,6 @@ class JadwalOperasiController extends Controller
 
     public function updateStatus(jadwal_operasi $jadwal_operasi)
     {
-
         if ($jadwal_operasi->status == true) {
             $jadwal_operasi->status = false;
             $jadwal_operasi->save();

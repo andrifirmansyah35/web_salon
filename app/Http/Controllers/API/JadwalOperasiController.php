@@ -15,11 +15,13 @@ class JadwalOperasiController extends Controller
 {
     public function cari_jadwal(Request $request)
     {
-        // A.0 fitur pengubah data lampau antri menjadi tidak datang && jika tanggal lampau tanggal akan diubah menjadi false -----------------------------------------------------------------
-        $jadwal_lampau = jadwal_operasi::whereDate('tanggal', '<', date('Y-m-d'));
+        // A.0 fitur pengubah data lampau antri menjadi tidak datang && jika tanggal lampau tanggal akan diubah menjadi false -------
+        $jadwal_lampau = jadwal_operasi::whereDate('tanggal', '<', date('Y-m-d'))->get();
 
         // A.1 mengubah jadwal lampau bernilai false ----------------------------------------------------------------------------
-        $jadwal_lampau->where('status', true)->update(['status' => false]);
+        if ($jadwal_lampau != []) {
+            jadwal_operasi::whereDate('tanggal', '<', date('Y-m-d'))->where('status', true)->update(['status' => false]);
+        }
 
         // =============================================================================================================================
 

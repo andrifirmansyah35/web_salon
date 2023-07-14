@@ -17,7 +17,7 @@ class KategoriOperasiController extends Controller
     public function index()
     {
         return view('kategori_operasi.index', [
-            'title' => 'Kategori operasi',
+            'title' => 'Kategori Operasional',
             'kategori_operasi' => kategori_operasi::orderBy('created_at', 'desc')->get()
         ]);
     }
