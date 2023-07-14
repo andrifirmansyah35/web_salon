@@ -83,7 +83,7 @@ class JadwalOperasiController extends Controller
         $user_keranjang_operasi_cek = keranjang_operasi::where([['user_id', $user->id], ['operasi_id', $request->id_operasi]])->first();
         if ($user_keranjang_operasi_cek != []) {
             return response()->json([
-                'messsage' => "jadwal sudah ada didalam keranjang anda",
+                'message' => "jadwal sudah ada didalam keranjang anda",
                 "status" => "failed"
             ]);
         }
