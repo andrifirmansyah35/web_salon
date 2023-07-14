@@ -90,7 +90,7 @@ class JadwalOperasiController extends Controller
             ]);
         }
 
-        keranjang_operasi::create(['user_id' => $user->id, 'operasi_id' => $request->id_operasi]);
+        keranjang_operasi::create(['user_id' => $user->id, 'operasi_id' => $request->id_operasi, 'status' => false]); // status false = kosong
 
         return response()->json([
             'status' => "success",
