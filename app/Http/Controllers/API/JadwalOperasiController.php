@@ -29,8 +29,8 @@ class JadwalOperasiController extends Controller
 
         if ($tanggal_besok > $tanggal_request) {
             return response()->json([
-                "message_1" => "tidak dapat mencari jadwal lampau",
-                "message_2" => "minimal pencarian 2 hari dari hari ini",
+                "status" => "failed",
+                "message" => "tidak dapat mencari jadwal lampau, minimal pencarian 2 hari dari hari ini",
                 "tanggal request" => $tanggal_request,
                 "tanggal besok" => $tanggal_besok
             ]);
@@ -75,8 +75,8 @@ class JadwalOperasiController extends Controller
 
         if ($cek_operasi_status_booking->status == true) {
             return response()->json([
-                'messsage' => "failed",
-                "message_2" => "jadwal operasional sudah dibookiing"
+                'status' => "failed",
+                "message" => "jadwal operasional sudah dibookiing"
             ]);
         }
 
@@ -84,16 +84,16 @@ class JadwalOperasiController extends Controller
         $user_keranjang_operasi_cek = keranjang_operasi::where([['user_id', $user->id], ['operasi_id', $request->id_operasi]])->first();
         if ($user_keranjang_operasi_cek != []) {
             return response()->json([
-                'messsage' => "failed",
-                "message_2" => "jadwal sudah ada didalam keranjang anda"
+                'messsage' => "jadwal sudah ada didalam keranjang anda",
+                "status" => "failed"
             ]);
         }
 
         keranjang_operasi::create(['user_id' => $user->id, 'operasi_id' => $request->id_operasi]);
 
         return response()->json([
-            'messsage' => "success",
-            "message_2" => "berhasil menambahkan "
+            'status' => "success",
+            "message" => "berhasil menambahkan "
         ]);
     }
 
@@ -128,8 +128,8 @@ class JadwalOperasiController extends Controller
         ])->delete();
 
         return response()->json([
-            'message' => 'success',
-            'message_2' => 'berhasil menghapus operasi yang terblokir pada keranjang anda'
+            'status' => 'success',
+            'message' => 'berhasil menghapus operasi yang terblokir pada keranjang anda'
         ]);
     }
 
