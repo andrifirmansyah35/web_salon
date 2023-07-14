@@ -90,12 +90,30 @@ class JadwalOperasiController extends Controller
             ]);
         }
 
-        keranjang_operasi::create(['user_id' => $user->id, 'operasi_id' => $request->id_operasi, 'status' => false]); // status false = kosong
+        $data = keranjang_operasi::create(['user_id' => $user->id, 'operasi_id' => $request->id_operasi, 'status' => false]); // status false = kosong
+        $keranjangOperasi = $data->operasi;
+        $jadwalOperasi = $keranjangOperasi->jadwal_operasi;
+        $dataJadwal = [
+            'id' => $data->id,
+            'status' => $data->status,
+            'user_id' => $data->user_id,
+            'user_nama' => $data->member->name,
+            'operasi' => $keranjangOperasi->waktu_mulai . "-" . $keranjangOperasi->waktu_selesai,
+            'jadwal_operasi' => $jadwalOperasi->tanggal,
+        ];
 
         return response()->json([
             'status' => "success",
-            "message" => "berhasil menambahkan "
+            "message" => "berhasil menambahkan",
+            'data' => $dataJadwal
         ]);
+
+        // final int id;
+        // final bool status;
+        // final int userId;
+        // final String userNama;
+        // final String operasi;
+        // final String jadwalOperasi;
     }
 
     public function keranjang_operasi(Request $request) //mumet gaming
