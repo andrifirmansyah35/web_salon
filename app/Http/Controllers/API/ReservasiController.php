@@ -63,7 +63,6 @@ class ReservasiController extends Controller
     {
         // 1. cek kelengapan request --------------------------------------------------------------------
         $validator = Validator::make($request->all(), [
-            'email' => 'required',
             'id_operasi' => 'required',
             'id_layanan' => 'required'
         ]);
