@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\jadwal_operasi;
 use App\Models\keranjang_layanan;
 use App\Models\keranjang_operasi;
 use App\Models\layanan;
@@ -24,35 +25,29 @@ class ReservasiController extends Controller
     {
         $user = auth()->user();
 
-        // 1.cek apakah ada data reservasi lampau yang berstatus antri
+        // 1. Fitur pengubah data reservasi lampau (antri ke tidak datang) #########################################
         $tanggal_hari_ini = date('Y-m-d');
-        // 1.1 mendapatkan data lampau -------------------------------------
-        // reservasi mendatang
-
-        $cek_reservasi_lampau = Reservasi::whereDate('tanggal', '<', $tanggal_hari_ini)->get(); //salahhhhh
+        $cek_reservasi_lampau = jadwal_operasi::whereDate('tanggal', '<', $tanggal_hari_ini)->get();
 
         if ($cek_reservasi_lampau != []) {
             foreach ($cek_reservasi_lampau as $rt) {
-                Reservasi::where('id', $rt->id)
+                Reservasi::where('jadwal_operasi_id', $rt->id)->where('status', 'antri')
                     ->update(['status' => 'tidak datang']);
             }
         }
+        // 1. Fitur pengubah data reservasi lampau (antri ke tidak datang) #########################################
 
-        $reservasi_user = Reservasi::where('user_id', $user->id)->get();
-
+        // 2. Fitur daftar reservasi ---------------------------------------------------------
+        $reservasi_user = Reservasi::where('user_id', $user->id)->orderBy('id', 'desc')->get();
         $reservasi_user_komplit = $reservasi_user->map(function ($data) {
-
-
             $operasi_user = operasi::where('id', $data->operasi_id)->first();
-
             return  [
                 "user_id" => $data->user_id,
                 "user_nama" => User::where('id', $data->user_id)->first()->name,
                 "layanan_id" => $data->layanan_id,
                 "layanan_nama" => layanan::where('id', $data->layanan_id)->first()->nama,
                 "operasi_id" => $data->operasi_id,
-                "operasi_mulai" => $operasi_user->waktu_mulai,
-                "operasi_akhir" => $operasi_user->waktu_selesai,
+                "operasi" => $operasi_user->waktu_mulai . "-" . $operasi_user->waktu_selesai,
                 "status" => $data->status,
             ];
         });

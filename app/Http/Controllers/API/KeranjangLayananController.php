@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\cekout;
+use App\Models\kategori_layanan;
 use Illuminate\Http\Request;
 use App\Models\keranjang_layanan;
 use App\Models\layanan;
@@ -54,6 +55,7 @@ class KeranjangLayananController extends Controller
             return [
                 'id_keranjang_layanan' => $keranjang->id,
                 'status' => $keranjang->status,
+                'gambar_kategori_layanan' => $layanan->kategori_layanan->gambar,
                 'layanan' => $layanan->nama,
                 'kategori_layanan' => $layanan->kategori_layanan->nama,
                 'harga' => $layanan->harga
@@ -65,7 +67,7 @@ class KeranjangLayananController extends Controller
             return [
                 'id_keranjang_layanan' => $keranjang->id,
                 'status' => $keranjang->status,
-                // 'layanan' => layanan::where('id', $keranjang->layanan_id)->first()->nama,
+                'gambar_kategori_layanan' => $layanan->kategori_layanan->gambar,
                 'layanan' => $layanan->nama,
                 'kategori_layanan' => $layanan->kategori_layanan->nama,
                 'harga' => $layanan->harga

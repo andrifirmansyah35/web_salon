@@ -104,12 +104,12 @@ class JadwalOperasiController extends Controller
         $keranjang_operasi_user_buka = keranjang_operasi::where([
             ['user_id', $user->id],
             ['status', false]
-        ])->get();
+        ])->orderBy('id', 'desc')->get();
 
         $keranjang_operasi_user_terblokir = keranjang_operasi::where([
             ['user_id', $user->id],
             ['status', true]
-        ])->get();
+        ])->orderBy('id', 'desc')->get();
 
         return response()->json([
             'message' => 'success',
