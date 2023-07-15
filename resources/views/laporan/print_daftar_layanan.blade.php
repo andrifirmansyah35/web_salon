@@ -24,10 +24,11 @@
 </style>
 {{-- kita akan menggunakan float --}}
 
-<div class="header-laporan">
+<div class="header-laporan" style="margin-top: -50px">
     <center>
         <h2>RCSM BANTUL</h2>
-        <p>Jl. Bantul No.13, Monggang, Pendowoharjo, Kec. Sewon, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55186</p>
+        <p style="margin-top: -4px">Jl. Bantul No.13, Monggang, Pendowoharjo, Kec. Sewon, Kabupaten Bantul</p>
+        <p style="margin-top: -10px">Daerah Istimewa Yogyakarta 55186</p>
     </center>
 </div>
 
@@ -46,8 +47,8 @@
     <table border="1" class="table-border" cellspacing="0" cellpadding="5">
         <tr>
             <td><strong>No</strong></td>
-            <td><strong>Kategori</strong></td>
             <td><strong>Nama</strong></td>
+            <td><strong>Kategori</strong></td>
             <td><strong>Status</strong></td>
             <td><strong>Harga</strong></td>
         </tr>
@@ -57,8 +58,8 @@
             @foreach ($layanan_all as $l)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $l->kategori_layanan->nama }}</td>
                     <td>{{ $l->nama }}</td>
+                    <td>{{ $l->kategori_layanan->nama }}</td>
                     <td>{{ $l->status ? 'tersedia' : 'kosong' }}</td>
                     <td>{{ 'Rp ' . number_format($l->harga, 2, ',', '.') }}</td>
                 </tr>

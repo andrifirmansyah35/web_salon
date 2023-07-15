@@ -15,7 +15,7 @@ class LayananController extends Controller
     {
         return view('layanan.index', [
             'title' => 'Layanan',
-            'layanan' => layanan::all()
+            'layanan' => layanan::orderBy("kategori_layanan_id")->get()
         ]);
 
         // coba relation secara langsung=======================================
