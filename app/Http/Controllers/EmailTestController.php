@@ -17,7 +17,7 @@ class EmailTestController extends Controller
     public function kedua()
     {
         $isi_email = [
-            'title' => 'RCSM Bantul - Token Untuk Password Batu',
+            'title' => 'RCSM Bantul - Token Untuk Password Baru',
             'body' => 'Berikut token yang dapat anda gunakan untuk password baru anda'
         ];
 

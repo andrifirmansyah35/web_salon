@@ -31,7 +31,7 @@ class SendEmail extends Mailable
     {
         // return $this->view('email.email');
         return $this->from('ahsyandri@gmail.com')
-            ->subject('Informasi Cara kirim')
+            ->subject('Akun telah terdaftar Menjadi Member')
             ->view('email.email_kedua');
     }
 }
