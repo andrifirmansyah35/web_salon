@@ -90,7 +90,7 @@ class JadwalOperasiController extends Controller
                 'jadwal_operasi_id' => $data_jadwal_operasi_baru_id,
                 'waktu_mulai' => $sko->waktu_mulai,
                 'waktu_selesai' => $sko->waktu_selesai,
-                'status' => 'kosong'
+                'status' => false //kosong
             ]);
         }
 
