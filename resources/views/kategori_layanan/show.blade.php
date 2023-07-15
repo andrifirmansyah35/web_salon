@@ -10,14 +10,15 @@
         <!-- Card Body -->
         <div class="card-body">
             <div class="row">
-                <div class="form-group">
+                <div class="form-group w-100">
                     <img src="{{ $kategori_layanan->gambar == '' ? asset('img/profile.png') : asset('storage/' . $kategori_layanan->gambar) }}"
-                        class="rounded mx-auto col-sm-5 d-blok" alt="...">
+                        class="rounded mx-auto col-sm-5 d-blok" alt="{{ $kategori_layanan->gambar }}">
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-5">
-                    <a href="/kategori_layanan/{{ $kategori_layanan->slug }}/edit" class="btn btn-warning w-100">Edit</a>
+                    <a href="/kategori_layanan/{{ $kategori_layanan->slug }}/edit" class="btn btn-warning w-100">Edit
+                        Kategori Layanan</a>
                 </div>
             </div>
         </div>

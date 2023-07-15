@@ -54,6 +54,7 @@ class KategoriLayananController extends Controller
     public function show(kategori_layanan $kategori_layanan)
     {
         return view('kategori_layanan.show', ['title' => 'kategori Layanan info', 'kategori_layanan' => $kategori_layanan]);
+        // return $kategori_layanan;
     }
 
 
