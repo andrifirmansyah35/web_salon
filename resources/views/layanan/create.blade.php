@@ -51,7 +51,7 @@
                 </select>
             </div>
 
-            <div class="from-group mb-3">
+            {{-- <div class="from-group mb-3">
                 <label for="deskripsi" class="form-label">Body</label>
                 @error('deskripsi')
                     <div class="text-danger">
@@ -60,13 +60,13 @@
                 @enderror
                 <input type="hidden" id="deskripsi" name="deskripsi" value="{{ old('deskripsi') }}">
                 <trix-editor input="deskripsi"></trix-editor>
-            </div>
+            </div> --}}
 
             <button type="submit" class="btn btn-primary">Tambah Data</button>
         </form>
     </div>
 
-    <script>
+    {{-- <script>
         const nama = document.querySelector('#nama');
         const slug = document.querySelector('#slug');
 
@@ -76,5 +76,5 @@
                 //kita ambil isinya |responsenya kita jalankan dimethod json| json masih (promise)
                 .then(data => slug.value = data.slug)
         })
-    </script>
+    </script> --}}
 @endsection

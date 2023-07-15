@@ -54,7 +54,7 @@ class LayananController extends Controller
             'nama' => 'required|max:30|min:5',
             'slug' => 'required|unique:layanan',
             'harga' => 'required',
-            'deskripsi' => 'required|min:10|max:200',
+            // 'deskripsi' => 'required|min:10|max:200',
         ]);
 
         $validatedData['status'] = true;
