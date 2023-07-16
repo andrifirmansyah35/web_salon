@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\jadwal_operasi;
+use App\Models\kategori_layanan;
 use App\Models\keranjang_layanan;
 use App\Models\keranjang_operasi;
 use App\Models\layanan;
@@ -43,12 +44,14 @@ class ReservasiController extends Controller
             $operasi_user = operasi::where('id', $data->operasi_id)->first();
             $layanan = layanan::where('id', $data->layanan_id)->first();
 
+
             return  [
                 "user_id" => $data->user_id,
                 "user_nama" => User::where('id', $data->user_id)->first()->name,
                 "layanan_id" => $data->layanan_id,
                 "layanan_nama" => $layanan->nama,
                 "gambar" => $layanan->kategori_layanan->gambar,
+                "kategori_layanan" => $layanan->kategori_layanan->nama,
                 "operasi_id" => $data->operasi_id,
                 "operasi" => $operasi_user->waktu_mulai . "-" . $operasi_user->waktu_selesai,
                 "status" => $data->status,
