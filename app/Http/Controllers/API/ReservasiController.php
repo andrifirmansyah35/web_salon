@@ -41,11 +41,14 @@ class ReservasiController extends Controller
         $reservasi_user = Reservasi::where('user_id', $user->id)->orderBy('id', 'desc')->get();
         $reservasi_user_komplit = $reservasi_user->map(function ($data) {
             $operasi_user = operasi::where('id', $data->operasi_id)->first();
+            $layanan = layanan::where('id', $data->layanan_id)->first();
+
             return  [
                 "user_id" => $data->user_id,
                 "user_nama" => User::where('id', $data->user_id)->first()->name,
                 "layanan_id" => $data->layanan_id,
-                "layanan_nama" => layanan::where('id', $data->layanan_id)->first()->nama,
+                "layanan_nama" => $layanan->nama,
+                "gambar" => $layanan->kategori_layanan->gambar,
                 "operasi_id" => $data->operasi_id,
                 "operasi" => $operasi_user->waktu_mulai . "-" . $operasi_user->waktu_selesai,
                 "status" => $data->status,
@@ -73,6 +76,11 @@ class ReservasiController extends Controller
                 'error' => $validator->errors()
             ]);
         }
+
+        // cek apakah reservasi tersedia kalau tidak batalkan =================================================
+        // $cek_operasi = operasi::where('id', $reqest);
+        // ====================================================================================================
+
 
         //2. saya asumsikan bahwa operasi dan layanan sudah (true) dapat dipesan dan operasi tidak digunakan
         $user = auth()->user();

@@ -19,8 +19,18 @@ class KeranjangLayananController extends Controller
         $layanan = layanan::where('slug', $request->slug_layanan)->first();
         $user = auth()->user();
 
+        // 0. cek lagi apakah layanan non aktif
+        if ($layanan->status == false) {
+            return response()->json([
+                'message' => 'failed',
+                'alert' => 'tidak dapat menambahkan keranjang layanan karena layanan sedang tidak tersedia',
+                'data' => $layanan,
+            ]);
+        }
+
         // 1. cek apakah data layanan sudah ada didalam table keranjang
         $keranjang_layanan_user = keranjang_layanan::where('layanan_id', $layanan->id)->first();
+
 
         if ($keranjang_layanan_user == []) {
             $data_keranjang_layanan = [
@@ -40,6 +50,8 @@ class KeranjangLayananController extends Controller
                 'gambar_kategori_layanan' => $kategori_layanan->gambar,
                 'harga' => $data->layanan->harga,
             ];
+
+
             return response()->json([
                 'message' => 'success',
                 'alert' => 'layanan berhasil ditambahkan dikeranjang anda',
