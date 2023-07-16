@@ -52,6 +52,7 @@ class ReservasiController extends Controller
                 "layanan_id" => $data->layanan_id,
                 "layanan_nama" => $layanan->nama,
                 "gambar" => $layanan->kategori_layanan->gambar,
+                "harga" => $layanan->harga,
                 "kategori_layanan" => $layanan->kategori_layanan->nama,
                 "operasi_id" => $data->operasi_id,
                 "tanggal" => $tanggal,
