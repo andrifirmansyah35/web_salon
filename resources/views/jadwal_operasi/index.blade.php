@@ -8,7 +8,7 @@
             <button data-toggle="modal" data-target="#modal-tambah-jadwal-operasi"
                 class="btn btn-primary btn-lg mb-3 ml-auto d-block">
                 <i class="fas fa-solid fa-plus mr-1"></i>
-                <p class="d-inline">Buat Jadwal Operasi</p>
+                <p class="d-inline">Buat Jadwal Operasional</p>
             </button>
         </div>
     </div>
@@ -121,7 +121,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">
-                        Form Jadwal Operasi
+                        Form Jadwal Operasional
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>

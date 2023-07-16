@@ -6,7 +6,7 @@ use App\Models\operasi;
 use App\Models\jadwal_operasi;
 use App\Models\reservasi;
 use App\Models\User;
-use App\Models\Layanan;
+use App\Models\layanan;
 use Illuminate\Http\Request;
 
 class OperasiController extends Controller

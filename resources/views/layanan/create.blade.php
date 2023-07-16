@@ -66,7 +66,7 @@
         </form>
     </div>
 
-    {{-- <script>
+    <script>
         const nama = document.querySelector('#nama');
         const slug = document.querySelector('#slug');
 
@@ -76,5 +76,5 @@
                 //kita ambil isinya |responsenya kita jalankan dimethod json| json masih (promise)
                 .then(data => slug.value = data.slug)
         })
-    </script> --}}
+    </script>
 @endsection
