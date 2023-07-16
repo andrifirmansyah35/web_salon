@@ -43,6 +43,7 @@ class ReservasiController extends Controller
         $reservasi_user_komplit = $reservasi_user->map(function ($data) {
             $operasi_user = operasi::where('id', $data->operasi_id)->first();
             $layanan = layanan::where('id', $data->layanan_id)->first();
+            $tanggal = jadwal_operasi::where('id', $data->jadwal_operasi_id)->first()->tanggal;
 
 
             return  [
@@ -53,6 +54,7 @@ class ReservasiController extends Controller
                 "gambar" => $layanan->kategori_layanan->gambar,
                 "kategori_layanan" => $layanan->kategori_layanan->nama,
                 "operasi_id" => $data->operasi_id,
+                "tanggal" => $tanggal,
                 "operasi" => $operasi_user->waktu_mulai . "-" . $operasi_user->waktu_selesai,
                 "status" => $data->status,
             ];
