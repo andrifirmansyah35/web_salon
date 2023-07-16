@@ -78,6 +78,7 @@ class KeranjangLayananController extends Controller
             $layanan = layanan::where('id', $keranjang->layanan_id)->first();
             return [
                 'id_keranjang_layanan' => $keranjang->id,
+                'id_layanan' => $keranjang->layanan_id,
                 'status' => $keranjang->status,
                 'gambar_kategori_layanan' => $layanan->kategori_layanan->gambar,
                 'layanan' => $layanan->nama,
