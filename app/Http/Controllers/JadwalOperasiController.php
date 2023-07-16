@@ -56,15 +56,16 @@ class JadwalOperasiController extends Controller
         }
 
         // 1 cek apalakah data kategori_operasi ada 
-        if (kategori_operasi::where('id', $request->kategori_operasi_id)->get()->isEmpty()) {
+        if (kategori_operasi::where('id', $request->kategori_operasi_id)->get() == []) {
             return redirect('/jadwal_operasi')->with('fail', 'Kategori Operasi Tidak tersedia');
         }
 
-
         // 2.1 cek apakah skema pada kategori operasi yang digunakan ada skema
-        if (skema_operasi::where('kategori_operasi_id', $request->kategori_operasi_id)->get()->isEmpty()) {
-            return redirect('/jadwal_operasi')->with('fail', 'Skema operasi pada kategori operasi yang dipilih tidak valid, silahkan pilih skema lain');
+        // return skema_operasi::where('kategori_operasi_id', $request->kategori_operasi_id)->count();
+        if (skema_operasi::where('kategori_operasi_id', $request->kategori_operasi_id)->count() == 0) {
+            return redirect('/jadwal_operasi')->with('fail', 'Skema operasi pada kategori operasi yang dipilih tidak valid, silahkan pilih kategori operasi lain');
         }
+
 
 
         // 2.3 input jadwal operasi
