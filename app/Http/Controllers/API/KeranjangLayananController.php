@@ -108,23 +108,35 @@ class KeranjangLayananController extends Controller
 
     public function keranjang_layanan_hapus_aktif(Request $request)
     {
-        keranjang_layanan::where('id', $request->id_keranjang_layanan)->delete();
+        $deleteLayanan = keranjang_layanan::where('id', $request->id_keranjang_layanan)->delete();
+
+        if ($deleteLayanan) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Berhasil menghapus Keranjang Layanan'
+            ]);
+        }
 
         return response()->json([
-            'message' => 'success',
-            'message 2' => 'Berhasil menghapus Keranjang Layanan'
-        ]);
+            'status' => 'failed',
+            'message' => 'Gagal menghapus Keranjang Layanan'
+        ], 400);
     }
 
     public function keranjang_layanan_hapus_non_aktif(Request $request)
     {
         $user = auth()->user();
 
-        keranjang_layanan::where('user_id', $user->id)->where('status', false)->delete();
-
+        $deleteAll = keranjang_layanan::where('user_id', $user->id)->where('status', false)->delete();
+        if ($deleteAll) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Berhasil menghapus semua keranjang layanan yang tidak aktif'
+            ]);
+        }
         return response()->json([
-            'message' => 'success',
-            'message 2' => 'Berhasil menghapus semua keranjang layanan yang tidak aktif user'
-        ]);
+            'status' => 'failed',
+            'message' => 'Gagal menghapus Keranjang Layanan'
+        ], 400);
     }
 }
