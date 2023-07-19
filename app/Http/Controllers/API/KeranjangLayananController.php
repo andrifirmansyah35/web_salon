@@ -24,7 +24,7 @@ class KeranjangLayananController extends Controller
             return response()->json([
                 'message' => 'failed',
                 'alert' => 'tidak dapat menambahkan keranjang layanan karena layanan sedang tidak tersedia',
-                'data' => $layanan,
+                // 'data' => $layanan,
             ]);
         }
 
