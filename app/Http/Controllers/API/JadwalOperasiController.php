@@ -177,7 +177,7 @@ class JadwalOperasiController extends Controller
         if ($deleteAll) {
             return response()->json([
                 'status' => 'success',
-                'message' => 'berhasil menghapus operasi yang terblokir pada keranjang anda'
+                'message' => 'Berhasil menghapus operasi yang terblokir pada keranjang anda'
             ], 200);
         }
 
