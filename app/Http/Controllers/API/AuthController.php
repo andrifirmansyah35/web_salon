@@ -50,16 +50,24 @@ class AuthController extends Controller
     {
         $user = auth()->user();
 
-        if ($user && Hash::check($request->password_lama, $user->password) && $request->password_baru) {
-            $password_baru_hash = Hash::make($request->password_baru);
+        if ($user && $request->password_baru) {
+            if (Hash::check($request->password_lama, $user->password)) {
 
-            $ubahPassword = User::whereId($user->id)->update(['password' => $password_baru_hash]);
+                $password_baru_hash = Hash::make($request->password_baru);
 
-            if ($ubahPassword) {
+                $ubahPassword = User::whereId($user->id)->update(['password' => $password_baru_hash]);
+
+                if ($ubahPassword) {
+                    return response()->json([
+                        'status' => 'success',
+                        'message' => 'Berhasil Menganti Passsword',
+                    ], 200);
+                }
+            } else {
                 return response()->json([
-                    'status' => 'success',
-                    'message' => 'Berhasil Menganti Passsword',
-                ], 200);
+                    'status' => 'failed',
+                    'message' => 'Password lama tidak valid',
+                ], 400);
             }
         }
 
