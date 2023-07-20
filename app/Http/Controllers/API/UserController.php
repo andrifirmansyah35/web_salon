@@ -65,10 +65,40 @@ class UserController extends Controller
         ]);
     }
 
+    public function checkToken(Request $request)
+    {
+        // $request = [email,token,password] 
+        $validator = Validator::make($request->all(), [
+            'token' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'Token tidak valid',
+                'error' => $validator->errors()
+            ], 400);
+        }
+
+        $data = TokenPassword::where('token', $request->token)->first();
+
+        if ($data) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Token valid',
+                'data' => $data->user
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'failed',
+            'message' => 'Token tidak valid'
+        ], 400);
+    }
+
     public function password_baru_dengan_token_konfirmasi(Request $request)
     {
-
-        // $request = [email,token,password] 
+        // $request = [token,password] 
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'token' => 'required',
@@ -76,42 +106,50 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
+            if (strlen($request->password_baru) < 8) {
+                return response()->json([
+                    'status' => 'failed',
+                    'message' => 'Password harus lebih dari 8 karakter'
+                ], 400);
+            }
+
             return response()->json([
-                'message' => 'failed',
+                'status' => 'failed',
+                'message' => 'Email/Token tidak valid',
                 'error' => $validator->errors()
-            ]);
-        }
-
-        // cari user ------------------------------------------------------
-        $user = User::where('email', $request->email)->first();
-
-        if ($user == null) {
-            return response()->json([
-                'message' => 'failed',
-                'error' => 'akun email tidak tersedia'
-            ]);
+            ], 400);
         }
 
         // cari data token -------------------------------------------------
-        $cek_token_user = TokenPassword::where('user_id', $user->id)->where('token', $request->token)->first();
+        $cek_token_user = TokenPassword::where('token', $request->token)->first();
 
-        if ($cek_token_user == null) {
+        if (!$cek_token_user) {
             return response()->json([
-                'message' => 'failed',
-                'error' => 'token dalah'
+                'status' => 'failed',
+                'message' => 'Token tidak valid'
+            ], 400);
+        }
+
+        // cari user ------------------------------------------------------
+        $user = $cek_token_user->user;
+
+        if (!$user || $user->email != $request->email) {
+            return response()->json([
+                'status' => 'failed',
+                'message' => 'Akun tidak valid'
             ]);
         }
 
         // mengubah password user ----------------------------------
         $password_generate = Hash::make($request->password_baru);
-        User::where('email', $request->email)->update(['password' => $password_generate]);
+        User::where('id', $user->id)->update(['password' => $password_generate]);
 
         // menghapus data token--------------------------------
         TokenPassword::where('user_id', $user->id)->where('token', $request->token)->delete();
 
         return response()->json([
-            'message' => 'success',
-            'info' => 'password berhasil diubah'
+            'status' => 'success',
+            'message' => 'Password berhasil diubah'
         ]);
     }
 

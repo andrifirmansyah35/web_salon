@@ -28,6 +28,7 @@ use App\Http\Controllers\API\UserController;
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/send-token-lupa-password', [UserController::class, 'send_token_lupa_password']);
+Route::post('/check-token', [UserController::class, 'checkToken']);
 Route::post('/password-baru-dengan-token-konfirmasi', [UserController::class, 'password_baru_dengan_token_konfirmasi']); //on progress
 
 Route::middleware(['middleware' => 'auth:sanctum'])->group(function () {
