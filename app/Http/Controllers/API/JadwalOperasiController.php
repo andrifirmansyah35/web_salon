@@ -148,6 +148,7 @@ class JadwalOperasiController extends Controller
         $keranjang_operasi_user_terblokir_2 = $keranjang_operasi_user_terblokir->map(function ($keranjang, $key) {
             return [
                 'id' => $keranjang->id,
+                'id_operasi' => $keranjang->operasi->id,
                 'status' => $keranjang->status,
                 'user_id' => $keranjang->user_id,
                 'user_nama' => $keranjang->member->name,
