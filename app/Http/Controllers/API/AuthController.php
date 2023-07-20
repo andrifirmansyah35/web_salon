@@ -59,13 +59,13 @@ class AuthController extends Controller
                 return response()->json([
                     'status' => 'success',
                     'message' => 'Berhasil Menganti Passsword',
-                ]);
+                ], 200);
             }
         }
 
         return response()->json([
             'status' => 'failed',
             'message' => 'gagal memperbaharui password'
-        ]);
+        ], 400);
     }
 }
