@@ -60,8 +60,8 @@ class UserController extends Controller
         Mail::to($tujuan)->send(new TokenLupaPasswordEmail($isi_email));
 
         return response()->json([
-            'message' => 'success',
-            'info' => 'Token berhasil dikirim'
+            'status' => 'success',
+            'message' => 'Token berhasil dikirim'
         ]);
     }
 
