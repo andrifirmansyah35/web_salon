@@ -137,20 +137,29 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'failed',
                 'message' => 'Akun tidak valid'
-            ]);
+            ], 400);
         }
 
         // mengubah password user ----------------------------------
         $password_generate = Hash::make($request->password_baru);
-        User::where('id', $user->id)->update(['password' => $password_generate]);
+        $changePassword = User::where('id', $user->id)->update(['password' => $password_generate]);
 
         // menghapus data token--------------------------------
         TokenPassword::where('user_id', $user->id)->where('token', $request->token)->delete();
 
+        if($changePassword){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Password berhasil diubah'
+            ]);
+        }
+
         return response()->json([
-            'status' => 'success',
-            'message' => 'Password berhasil diubah'
-        ]);
+            'status' => 'failed',
+            'message' => 'Akun tidak valid'
+        ], 400);
+
+        
     }
 
     public function password_baru(Request $request)
