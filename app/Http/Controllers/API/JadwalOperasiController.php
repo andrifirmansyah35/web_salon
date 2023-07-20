@@ -169,24 +169,38 @@ class JadwalOperasiController extends Controller
     {
         $user = auth()->user();
 
-        keranjang_operasi::where([
+        $deleteAll = keranjang_operasi::where([
             ['user_id', $user->id],
             ['status', true]
         ])->delete();
 
+        if ($deleteAll) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'berhasil menghapus operasi yang terblokir pada keranjang anda'
+            ], 200);
+        }
+
         return response()->json([
-            'status' => 'success',
-            'message' => 'berhasil menghapus operasi yang terblokir pada keranjang anda'
-        ]);
+            'status' => 'failed',
+            'message' => 'Gagal menghapus operasi yang terblokir pada keranjang anda'
+        ], 400);
     }
 
     public function keranjang_operasi_user_hapus(Request $request)  //tidak digunakan
     {
-        $keranjang_operasi = keranjang_operasi::where('id', $request->id_keranjang_operasi)->delete();
+        $deleteOperasi = keranjang_operasi::where('id', $request->id_keranjang_operasi)->delete();
+
+        if ($deleteOperasi) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'berhasil menghapus operasi yang terblokir pada keranjang anda'
+            ], 200);
+        }
 
         return response()->json([
-            'message' => 'success',
-            'keranjang_operasi' => $keranjang_operasi
-        ]);
+            'status' => 'failed',
+            'message' => 'Gagal menghapus operasi yang terblokir pada keranjang anda'
+        ], 400);
     }
 }
