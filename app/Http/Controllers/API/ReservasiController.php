@@ -118,7 +118,7 @@ class ReservasiController extends Controller
         ])->delete();
 
         // 6. mengupdate seluruhh keranjang operasi semua user
-        keranjang_operasi::where('operasi_id', $request->id_operasi)->update(['status' => false]);
+        keranjang_operasi::where('operasi_id', $request->id_operasi)->update(['status' => true]);
 
         return response()->json([
             "status" => "success",

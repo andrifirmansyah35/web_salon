@@ -29,7 +29,10 @@ class KeranjangLayananController extends Controller
         }
 
         // 1. cek apakah data layanan sudah ada didalam table keranjang
-        $keranjang_layanan_user = keranjang_layanan::where('layanan_id', $layanan->id)->first();
+        $keranjang_layanan_user = keranjang_layanan::where([
+            ['layanan_id', $layanan->id],
+            ['user_id', $user->id],
+        ])->first();
 
 
         if ($keranjang_layanan_user == []) {
