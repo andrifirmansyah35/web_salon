@@ -26,9 +26,9 @@ class UserController extends Controller
 
         if ($user == null) {
             return response()->json([
-                'message' => 'failed',
-                'info' => 'member tidak ditemukan'
-            ]);
+                'status' => 'failed',
+                'message' => 'member tidak ditemukan'
+            ], 400);
         }
 
         // test cek data -------------------
@@ -61,7 +61,7 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'success',
-            'info' => 'berhasil mengirimkan email'
+            'info' => 'Token berhasil dikirim'
         ]);
     }
 
