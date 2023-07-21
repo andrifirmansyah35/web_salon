@@ -65,6 +65,7 @@
                     </tfoot>
 
                     <tbody>
+
                         @foreach ($kategori_operasi->skema_operasi as $ko)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>

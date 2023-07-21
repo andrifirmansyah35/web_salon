@@ -37,7 +37,7 @@ class KategoriLayananController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|max:30',
+            'nama' => 'required|max:30|string',
             'slug' => 'required|unique:kategori_layanan',
             'gambar' => 'image|file|mimes:jpg,png,jpeg|max:5000'
         ]);

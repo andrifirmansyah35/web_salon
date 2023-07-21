@@ -25,7 +25,17 @@ class ReservasiController extends Controller
             ]);
         }
 
-        $operasi_booking_hari_ini = operasi::where('jadwal_operasi_id', $jadwal_operasi->id)->where('status', 'dibooking')->get();
+        $operasi_booking_hari_ini = operasi::where('jadwal_operasi_id', $jadwal_operasi->id)->where('status', true)->get();
+
+        // return $operasi_booking_hari_ini;
+
+        if ($operasi_booking_hari_ini == []) {
+            return view('reservasi.reservasi_sekarang', [
+                'title' => 'Daftar reservasi hari ini : ' . $hari_ini,
+                'reservasi_all' => []
+            ]);
+        }
+
         $reservasi_hari_ini = [];
 
         foreach ($operasi_booking_hari_ini as $ob) {

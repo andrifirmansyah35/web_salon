@@ -46,6 +46,7 @@ class KategoriOperasiController extends Controller
 
     public function show(kategori_operasi $kategori_operasi)
     {
+        // return $kategori_operasi;
         return view(
             'kategori_operasi.show',
             [
