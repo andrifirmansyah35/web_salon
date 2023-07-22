@@ -66,8 +66,8 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $r['operasi_mulai'] }}-{{ $r['operasi_selesai'] }}</td>
                                 <td>{{ $r['user_nama'] }}</td>
-                                <td>{{ $r['layanan_harga'] }}</td>
                                 <td>{{ $r['layanan_nama'] }}</td>
+                                <td>{{ 'Rp ' . number_format($r['layanan_harga'], 2, ',', '.') }}</td>
                                 <td><strong>{{ $r['status'] }}</strong></td>
                                 <td>
                                     <button type="button" class="btn btn-warning" data-toggle="modal"

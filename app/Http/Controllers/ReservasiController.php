@@ -17,6 +17,7 @@ class ReservasiController extends Controller
     {
         $hari_ini = date("Y-m-d");
         $jadwal_operasi = jadwal_operasi::where('tanggal', $hari_ini)->first();
+        // $jadwal_operasi = jadwal_operasi::where('tanggal', '2023-08-29')->first();
 
         if ($jadwal_operasi == null) {
             return view('reservasi.reservasi_sekarang', [
