@@ -55,12 +55,14 @@ Route::middleware(['auth'])->group(function () {
         $bulan_ini = date('m');
         $tahun_ini = date('Y');
 
-        $jadwal_operasi_id = jadwal_operasi::where('bulan', $bulan_ini)->where('tahun', $tahun_ini)->first()->id;
+        $jadwal_operasi = jadwal_operasi::where('bulan', $bulan_ini)->where('tahun', $tahun_ini);
 
         $total_reservasi_bulan_ini = 0;
 
         //1.2 Mencari jumlah reservasi : yang dibooking ---------------------------------------------------
-        if ($jadwal_operasi_id != []) {
+        if ($jadwal_operasi != []) {
+            $jadwal_operasi_id = $jadwal_operasi->first()->id;
+
             $total_reservasi_bulan_ini = operasi::where('jadwal_operasi_id', $jadwal_operasi_id)->count();
         }
 
