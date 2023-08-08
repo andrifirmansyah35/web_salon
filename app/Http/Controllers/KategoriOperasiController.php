@@ -47,11 +47,14 @@ class KategoriOperasiController extends Controller
     public function show(kategori_operasi $kategori_operasi)
     {
         // return $kategori_operasi;
+
+        // $kategori
         return view(
             'kategori_operasi.show',
             [
                 'title' => 'Skema Operasi : ' . $kategori_operasi->nama,
-                'kategori_operasi' => $kategori_operasi
+                'kategori_operasi' => $kategori_operasi,
+                // 'operasi' => 
             ]
         );
     }

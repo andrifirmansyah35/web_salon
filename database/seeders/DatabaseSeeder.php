@@ -193,7 +193,7 @@ class DatabaseSeeder extends Seeder
             skema_operasi::create([
                 'kategori_operasi_id' => $dso[0],
                 'waktu_mulai' => $dso[1],
-                'waktu_selesai' => $dso[1],
+                'waktu_selesai' => $dso[2],
             ]);
         }
 

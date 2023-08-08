@@ -68,6 +68,7 @@
 
                         @foreach ($kategori_operasi->skema_operasi as $ko)
                             <tr>
+                                {{-- {{ $ko }} --}}
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $ko->waktu_mulai }}-{{ $ko->waktu_selesai }}</td>
                                 <td>
