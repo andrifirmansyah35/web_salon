@@ -57,8 +57,12 @@ Route::middleware(['auth'])->group(function () {
 
         $jadwal_operasi_id = jadwal_operasi::where('bulan', $bulan_ini)->where('tahun', $tahun_ini)->first()->id;
 
+        $total_reservasi_bulan_ini = 0;
+
         //1.2 Mencari jumlah reservasi : yang dibooking ---------------------------------------------------
-        $total_reservasi_bulan_ini = operasi::where('jadwal_operasi_id', $jadwal_operasi_id)->count();
+        if ($jadwal_operasi_id != []) {
+            $total_reservasi_bulan_ini = operasi::where('jadwal_operasi_id', $jadwal_operasi_id)->count();
+        }
 
         return view('index', [
             'title' => 'Halaman Dashboard',
@@ -86,7 +90,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('jadwal_operasi_status/{jadwal_operasi:tanggal}', [JadwalOperasiController::class, 'updateStatus']);
     Route::delete('jadwal_operasi_hapus/{jadwal_operasi:tanggal}', [JadwalOperasiController::class, 'hapusJadwal']);
 
-Route::get('/jadwal_operasi_detail/{jadwal_operasi:tanggal}', [OperasiController::class, 'detail']);
+    Route::get('/jadwal_operasi_detail/{jadwal_operasi:tanggal}', [OperasiController::class, 'detail']);
 
     // reservasi controller ------------------------------------------------------------------------------------------
     Route::get('/reservasi', [ReservasiController::class, 'reservasi']);
@@ -122,8 +126,6 @@ Route::get('/jadwal_operasi_detail/{jadwal_operasi:tanggal}', [OperasiController
         Route::post('/admin_tambah', [UserController::class, 'adminSimpan']);
         Route::get('/admin_status/{user:email}', [UserController::class, 'adminStatus']);
     });
-
-
 
     Route::get('/profile', [UserController::class, 'userInfo']);
     Route::get('/profile_edit', [UserController::class, 'userEdit']);

@@ -10,21 +10,6 @@ use App\Http\Controllers\API\KeranjangLayananController;
 use App\Http\Controllers\API\ReservasiController;
 use App\Http\Controllers\API\UserController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/send-token-lupa-password', [UserController::class, 'send_token_lupa_password']);

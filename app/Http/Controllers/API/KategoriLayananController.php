@@ -42,6 +42,5 @@ class KategoriLayananController extends Controller
             'kategori_layanan' => $kategori_layanan->nama,
             'layanan_all' => $layanan
         ]);
-        // return $request;
     }
 }
