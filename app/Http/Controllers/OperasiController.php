@@ -37,8 +37,12 @@ class OperasiController extends Controller
             $reservasi = reservasi::where('jadwal_operasi_id', $jadwal_operasi->id)
                ->where('operasi_id', $p->id)
                ->where('status', 'selesai')->first();
-            // return $reservasi;
 
+            if ($reservasi == []) {
+               $reservasi = reservasi::where('jadwal_operasi_id', $jadwal_operasi->id)
+                  ->where('operasi_id', $p->id)
+                  ->where('status', 'antri')->first();
+            }
 
             if ($reservasi != []) {
                $user = user::where('id', $reservasi->user_id)->first();
