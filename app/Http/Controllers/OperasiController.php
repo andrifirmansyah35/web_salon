@@ -36,7 +36,8 @@ class OperasiController extends Controller
          if ($p->status == true) {
             $reservasi = reservasi::where('jadwal_operasi_id', $jadwal_operasi->id)
                ->where('operasi_id', $p->id)
-               ->where('status', 'antri')->first();
+               ->where('status', 'antri')->where('status', 'selesai')->first();
+
 
             if ($reservasi != []) {
                $user = user::where('id', $reservasi->user_id)->first();
@@ -56,7 +57,7 @@ class OperasiController extends Controller
          ];
       }
 
-      return $jadwal_operasi_reservasi;
+      // return $jadwal_operasi_reservasi;
 
       return view('reservasi.reservasi_mendatang_detail', [
          'title' => 'Detail Operasinal : ' . $jadwal_operasi->tanggal,
