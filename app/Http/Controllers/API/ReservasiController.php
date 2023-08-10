@@ -25,7 +25,7 @@ class ReservasiController extends Controller
     public function reservasi_user_daftar()
     {
         $user = auth()->user();
-
+        date_default_timezone_set('Asia/Jakarta');
         // 1. Fitur pengubah data reservasi lampau (antri ke tidak datang) #########################################
         $tanggal_hari_ini = date('Y-m-d');
         $cek_reservasi_lampau = jadwal_operasi::whereDate('tanggal', '<', $tanggal_hari_ini)->get();

@@ -12,6 +12,7 @@ class JadwalOperasiController extends Controller
 {
     public function index()
     {
+        date_default_timezone_set('Asia/Jakarta');
         // A.0 fitur pengubah data lampau antri menjadi tidak datang && jika tanggal lampau tanggal akan diubah menjadi false -----------------------------------------------------------------
         $jadwal_lampau = jadwal_operasi::whereDate('tanggal', '<', date('Y-m-d'));
 
@@ -41,6 +42,7 @@ class JadwalOperasiController extends Controller
         $validatedData['status'] = 0;
 
         //0.1 membandingkan membandingkan jika seharusnya jadwal operasi dibuat sekiranya satu hari sebelum 
+        date_default_timezone_set('Asia/Jakarta');
         $tanggal_hari_ini = date('Y-m-d');
         $tanggal_operasi_dibuat = date($validatedData['tanggal']);
 

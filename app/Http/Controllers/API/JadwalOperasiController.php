@@ -15,6 +15,7 @@ class JadwalOperasiController extends Controller
 {
     public function cari_jadwal(Request $request)
     {
+        date_default_timezone_set('Asia/Jakarta');
         // A.0 fitur pengubah data lampau antri menjadi tidak datang && jika tanggal lampau tanggal akan diubah menjadi false -------
         $jadwal_lampau = jadwal_operasi::whereDate('tanggal', '<', date('Y-m-d'))->get();
 

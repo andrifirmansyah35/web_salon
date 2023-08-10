@@ -15,6 +15,7 @@ class ReservasiController extends Controller
 {
     public function reservasi()
     {
+        date_default_timezone_set('Asia/Jakarta');
         $hari_ini = date("Y-m-d");
         $jadwal_operasi = jadwal_operasi::where('tanggal', $hari_ini)->first();
         // $jadwal_operasi = jadwal_operasi::where('tanggal', '2023-08-29')->first();
@@ -61,6 +62,7 @@ class ReservasiController extends Controller
             ];
         }
 
+
         $hari_judul = date("d M Y");
         // $nama_hari = date('I', $hari_ini);
 
@@ -88,6 +90,7 @@ class ReservasiController extends Controller
     public function reservasi_mendatang()
     {
         // 1. mencari informasi jadwal operasi yang dibuka dimasa mndatang lebih dari hari ini
+        date_default_timezone_set('Asia/Jakarta');
         $hari_ini = date("Y-m-d");
         $jadwal_operasi = jadwal_operasi::whereDate('tanggal', '>', $hari_ini)->get();
 
