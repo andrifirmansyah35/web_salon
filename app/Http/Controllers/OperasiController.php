@@ -55,7 +55,7 @@ class OperasiController extends Controller
          ];
       }
 
-      // return $jadwal_operasi_reservasi;
+      return $jadwal_operasi_reservasi;
 
       return view('reservasi.reservasi_mendatang_detail', [
          'title' => 'Detail Operasinal : ' . $jadwal_operasi->tanggal,
