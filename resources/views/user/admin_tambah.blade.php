@@ -55,10 +55,8 @@
 
             <div class="mb-2">
                 <label for="alamat" class="form-label">Alamat</label>
-                <textarea type="number" class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat"
-                    min="1000">
-                    {{ old('alamat') }}
-                    </textarea>
+                <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat"
+                    name="alamat" value="{{ old('alamat') }}" min="0">
                 @error('alamat')
                     <div class="text-danger">
                         {{ $message }}
