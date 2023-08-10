@@ -32,7 +32,7 @@ class OperasiController extends Controller
          $layanan_nama = "-";
 
          // 3. mencari data user jika operasional  dibooking
-         if ($p->booking = "booking") {
+         if ($p->booking == true) {
             $reservasi = reservasi::where('jadwal_operasi_id', $jadwal_operasi->id)
                ->where('operasi_id', $p->id)
                ->where('status', 'antri')->first();
@@ -55,7 +55,7 @@ class OperasiController extends Controller
          ];
       }
 
-      return $jadwal_operasi_reservasi;
+      // return $jadwal_operasi_reservasi;
 
       return view('reservasi.reservasi_mendatang_detail', [
          'title' => 'Detail Operasinal : ' . $jadwal_operasi->tanggal,
