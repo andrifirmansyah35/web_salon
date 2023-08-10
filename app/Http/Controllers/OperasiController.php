@@ -25,6 +25,7 @@ class OperasiController extends Controller
    {
       // 1. mencari operasi terkait dengan jadwal operasi
       $operasi = operasi::where('jadwal_operasi_id', $jadwal_operasi->id)->get();
+
       // 2. membat array operasi dan menambahkan data pelangan jika ada yg dipesan
       $jadwal_operasi_reservasi = [];
       foreach ($operasi as $p) {
@@ -32,12 +33,10 @@ class OperasiController extends Controller
          $layanan_nama = "-";
 
          // 3. mencari data user jika operasional  dibooking
-         if ($p->booking == true) {
+         if ($p->status == true) {
             $reservasi = reservasi::where('jadwal_operasi_id', $jadwal_operasi->id)
                ->where('operasi_id', $p->id)
                ->where('status', 'antri')->first();
-
-            return $reservasi;
 
             if ($reservasi != []) {
                $user = user::where('id', $reservasi->user_id)->first();
