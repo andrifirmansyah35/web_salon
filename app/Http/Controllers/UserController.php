@@ -164,6 +164,22 @@ class UserController extends Controller
         ]);
     }
 
+    public function memberStatus(User $user)
+    {
+
+        if ($user->level == 'member') {
+            $user->level = 'member_off';
+            $user->save();
+
+            return redirect('/daftar_member')->with('success', 'Berhasil menonaktifkan member ' . $user->name);
+        } else if ($user->level == 'member_off') {
+            $user->level = 'member';
+            $user->save();
+
+            return redirect('/daftar_member')->with('success', 'Berhasil mengaktifkan member' . $user->name);
+        }
+    }
+
 
     // 3. Admin ------------------------------------------------------------------------------------------
     public function admin()

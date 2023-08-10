@@ -47,6 +47,24 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label">Status Akun</label>
+                        <div class="col-sm-10">
+                            <input class="w-100 form-text form-control form-control-lg " value="{{ $member->level }}"
+                                readonly>
+                            </input>
+
+                            <small class="form-text text-muted">
+                                {{ $member->level == 'member' ? 'Apakah anda ingin menonaktifkan akun member?.' : 'Pulihakan kembali member' }}
+                                <button type="button" class=" btn btn-link form-text" data-toggle="modal"
+                                    data-target="#modal-nonaktif">
+                                    {{ $member->level == 'member' ? 'non-aktifkan' : 'pulihkan' }}
+                                </button>
+
+                            </small>
+                        </div>
+                    </div>
+
                 </div>
                 {{-- <div class="col-sm-4">
                     <div class="form-group">
@@ -108,6 +126,34 @@
                     </div>
                     <div></div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Untuk mengaktifkan data layanan -->
+    <div class="modal fade" id="modal-nonaktif" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Form aktivasi member
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="email_admin" value="{{ $member->email }}">
+
+                    Apakah anda ingin <span class="font-weight-bold">
+                        akun ini?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a href="/member_status/{{ $member->email }}"
+                        class="btn btn-success">{{ $member->level == 'admin' ? 'non-aktifkan' : 'aktifkan' }}</a>
+                </div>
             </div>
         </div>
     </div>

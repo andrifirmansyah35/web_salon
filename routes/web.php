@@ -120,6 +120,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/daftar_member', [UserController::class, 'member']);
     Route::get('/member/{user:email}', [UserController::class, 'memberInfo']);
+    Route::get('/member_status/{user:email}', [UserController::class, 'memberStatus']);
 
     Route::middleware(['pemilik'])->group(function () {
         Route::get('/daftar_admin', [UserController::class, 'admin']);
