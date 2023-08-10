@@ -149,7 +149,8 @@ class UserController extends Controller
     // 2. member -----------------------------------------------------------------------------------------
     public function member()
     {
-        $data_member = User::where('level', 'member')->get();
+        // $data_member = User::where('level', 'member')->get();
+        $data_member = User::where('level', 'member')->orWhere('level', 'member_off')->get();
         return view('user.member', [
             'title' => 'Daftar Member',
             'member_all' => $data_member

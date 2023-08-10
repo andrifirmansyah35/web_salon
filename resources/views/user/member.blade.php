@@ -61,7 +61,13 @@
                                 <td>{{ $member->name }}</td>
                                 <td>{{ $member->email }}</td>
                                 <td>{{ $member->telephone }}</td>
-                                <td>{{ $member->level }}</td>
+                                <td>
+                                    @if ($admin->level == 'member')
+                                        <p class='text-success'>aktif</p>
+                                    @elseif($admin->level == 'member_off')
+                                        <p class='text-danger'>non-aktif</p>
+                                    @endif
+                                </td>
                                 <td>
                                     <a href="/member/{{ $member->email }}" class="btn btn-info">detail</a>
                                 </td>

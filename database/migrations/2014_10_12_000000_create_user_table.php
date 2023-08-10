@@ -21,7 +21,7 @@ class CreateUserTable extends Migration
             $table->string('alamat');
             $table->string('telephone');
             $table->string('photo_profile')->nullable();
-            $table->enum('level', ['pemilik', 'admin', 'admin_off', 'pelanggan', 'member']);
+            $table->enum('level', ['pemilik', 'admin', 'admin_off', 'pelanggan', 'member', 'member_off']);
             $table->timestamps();
         });
     }
