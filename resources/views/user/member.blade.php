@@ -62,9 +62,9 @@
                                 <td>{{ $member->email }}</td>
                                 <td>{{ $member->telephone }}</td>
                                 <td>
-                                    @if ($admin->level == 'member')
+                                    @if ($member->level == 'member')
                                         <p class='text-success'>aktif</p>
-                                    @elseif($admin->level == 'member_off')
+                                    @elseif($member->level == 'member_off')
                                         <p class='text-danger'>non-aktif</p>
                                     @endif
                                 </td>
