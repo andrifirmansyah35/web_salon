@@ -210,6 +210,8 @@ class UserController extends Controller
         ]);
 
         $validatedData['level'] = 'admin';
+        $password_hash = Hash::make($validatedData['password']);
+        $validatedData['password'] = $password_hash;
 
         User::create($validatedData);
         return redirect('/daftar_admin')->with('success', 'Berhasil menambahkan ' . $validatedData['name'] . ' sebagai admin');
