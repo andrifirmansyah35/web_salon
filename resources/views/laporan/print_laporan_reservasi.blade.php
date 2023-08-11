@@ -73,6 +73,11 @@
                 <td>{{ tgl_indo(session()->get('laporan_reservasi_tanggal_awal')) . ' - ' . tgl_indo(session()->get('laporan_reservasi_tanggal_akhir')) }}
                 </td>
             </tr>
+            <tr>
+                <td>Pencetak</td>
+                <td>:</td>
+                <td>{{ Auth::user()->name }}</td>
+            </tr>
         @endif
 
     </table>
