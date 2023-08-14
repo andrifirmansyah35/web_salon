@@ -100,6 +100,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reservasi_mendatang_detail/{jadwal_operasi:id}', [ReservasiController::class, 'reservasi_mendatang_detail']);
     Route::put('/reservasi_status', [ReservasiController::class, 'reservasi_status']);
     Route::get('/reservasi_konfirmasi_pembayaran/{reservasi:id}', [ReservasiController::class, 'konfirmasi_pembayaran']);
+    Route::get('/reservasi_ubah_jadwal/{reservasi:id}', [ReservasiController::class, 'ubah_jadwal']);
+    Route::post('/reservasi_ubah_jadwal_simpan', [ReservasiController::class, 'ubah_jadwal_simpan']);
 
     // Laporan Controller ----------------------------------------------------------------------------------------------
     Route::get('/laporan_reservasi', [LaporanController::class, 'laporan_reservasi']);

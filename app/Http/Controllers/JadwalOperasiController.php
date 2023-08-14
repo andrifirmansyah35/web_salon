@@ -18,7 +18,6 @@ class JadwalOperasiController extends Controller
 
         // A.1 mengubah jadwal lampau bernilai false ----------------------------------------------------------------------------
         $jadwal_lampau->where('status', true)->update(['status' => false]);
-
         // =============================================================================================================================
 
         return view('jadwal_operasi.index', [
@@ -68,8 +67,6 @@ class JadwalOperasiController extends Controller
             return redirect('/jadwal_operasi')->with('fail', 'Skema operasi pada kategori operasi yang dipilih tidak valid, silahkan pilih kategori operasi lain');
         }
 
-
-
         // 2.3 input jadwal operasi
         $nama_kategori_operasi = kategori_operasi::where('id', $validatedData['kategori_operasi_id'])->first()->nama;
 
@@ -93,7 +90,7 @@ class JadwalOperasiController extends Controller
                 'jadwal_operasi_id' => $data_jadwal_operasi_baru_id,
                 'waktu_mulai' => $sko->waktu_mulai,
                 'waktu_selesai' => $sko->waktu_selesai,
-                'status' => false //kosong
+                'status' => false
             ]);
         }
 

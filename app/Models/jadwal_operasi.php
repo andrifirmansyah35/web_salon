@@ -17,8 +17,8 @@ class jadwal_operasi extends Model
         'id' => 'int'
     ];
 
-    // public function operasi()
-    // {
-    //     return $this->hasMany(operasi::class);
-    // }
+    public function operasi()
+    {
+        return $this->hasMany(operasi::class, 'jadwal_operasi_id');
+    }
 }

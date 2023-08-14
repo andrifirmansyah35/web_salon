@@ -9,6 +9,7 @@ class TokenPassword extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $table = 'token_password';
 
     protected $casts = [
         'id' => 'int',

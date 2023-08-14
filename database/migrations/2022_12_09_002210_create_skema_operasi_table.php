@@ -15,7 +15,9 @@ class CreateSkemaOperasiTable extends Migration
     {
         Schema::create('skema_operasi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kategori_operasi_id');
+            // $table->foreignId('kategori_operasi_id');
+            $table->unsignedBigInteger('kategori_operasi_id');
+            $table->foreign('kategori_operasi_id')->references('id')->on('kategori_operasi');
             $table->string('waktu_mulai');
             $table->string('waktu_selesai');
             $table->timestamps();
