@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>RCSM Bantul</title>
+    <title>RCSM Bantul Anjass Kelas</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="{{ asset('home/assets/favicon.ico') }}" />
     <!-- Font Awesome icons (free version)-->
