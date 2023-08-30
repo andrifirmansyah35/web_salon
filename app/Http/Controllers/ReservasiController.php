@@ -18,7 +18,7 @@ class ReservasiController extends Controller
         date_default_timezone_set('Asia/Jakarta');
         $hari_ini = date("Y-m-d");
         $jadwal_operasi = jadwal_operasi::where('tanggal', $hari_ini)->first();
-        // $jadwal_operasi = jadwal_operasi::where('tanggal', '2023-08-29')->first();
+        // return $jadwal_operasi;
 
         if ($jadwal_operasi == null) {
             return view('reservasi.reservasi_sekarang', [
@@ -62,9 +62,7 @@ class ReservasiController extends Controller
             ];
         }
 
-
         $hari_judul = date("d M Y");
-        // $nama_hari = date('I', $hari_ini);
 
         return view('reservasi.reservasi_sekarang', [
             'title' => 'Daftar reservasi hari ini : ' . $hari_judul,
@@ -72,9 +70,54 @@ class ReservasiController extends Controller
         ]);
     }
 
+    public function ubah_jadwal(Reservasi $reservasi)
+    {
+        if (!$reservasi || $reservasi->status != 'antri') {
+            return redirect('/reservasi')->with('fail', 'reservasi_tidak ');
+        }
+
+        $jadwal_kosong = $reservasi->jadwal_operasi->operasi->where('status', false);
+        $jumlah_jadwal_kosong = $jadwal_kosong->count();
+
+        if ($jumlah_jadwal_kosong == 0) {
+            return view('reservasi.reservasi_ubah_jadwal', [
+                'title' => 'Ubah Jadwal Reservasi Pelangan',
+                'reservasi' => $reservasi,
+                'jadwal_kosong' => "kosong"
+            ]);
+        }
+
+        return view('reservasi.reservasi_ubah_jadwal', [
+            'title' => 'Ubah Jadwal Reservasi Pelangan',
+            'reservasi' => $reservasi,
+            'jadwal_kosong' => $jadwal_kosong
+        ]);
+    }
+
+    public function ubah_jadwal_simpan(Request $request)
+    {
+        // 1 validasi data ------------------------------------------------
+        $data_validasi = $request->validate([
+            'reservasi_id' => ['required'],
+            'operasi_id' => ['required'],
+        ]);
+
+        $reservasi  = reservasi::where('id', $data_validasi['reservasi_id']);
+
+        // 2 ubah data operasi lampau 
+        operasi::where('id', $reservasi->first()->operasi_id)->update(['status' => false]);
+
+        // 3. update operasi baru
+        operasi::where('id', $data_validasi['operasi_id'])->update(['status' => true]);
+
+        // 4. update reservasi operasi id
+        reservasi::where('id', $data_validasi['reservasi_id'])->update(['operasi_id' => $data_validasi['operasi_id']]);
+
+        return redirect('/reservasi')->with('success', 'Berhasil mengubah jam layanan');
+    }
+
     public function reservasi_status(Request $request)
     {
-        // return $request->input();
         reservasi::where('id', $request->id_reservasi)->update(['status' => $request->status]);
         return redirect('/reservasi')->with('success', 'Berhasil mengubah status');
     }

@@ -16,7 +16,10 @@ class CreateLayananTable extends Migration
         date_default_timezone_set('Asia/Jakarta');
         Schema::create('layanan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kategori_layanan_id');
+            // $table->foreignId('kategori_layanan_id');
+            $table->unsignedBigInteger('kategori_layanan_id');
+            $table->foreign('kategori_layanan_id')->references('id')->on('kategori_layanan');
+            // ---------------------------
             $table->string('slug');
             $table->string('nama');
             $table->bigInteger('harga');

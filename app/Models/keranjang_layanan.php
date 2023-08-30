@@ -9,6 +9,7 @@ class keranjang_layanan extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $table = 'keranjang_layanan';
 
     protected $casts = [
         'id' => 'int',

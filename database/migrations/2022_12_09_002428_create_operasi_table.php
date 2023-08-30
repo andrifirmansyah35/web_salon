@@ -15,7 +15,9 @@ class CreateOperasiTable extends Migration
     {
         Schema::create('operasi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('jadwal_operasi_id');
+            // $table->foreignId('jadwal_operasi_id');
+            $table->unsignedBigInteger('jadwal_operasi_id');
+            $table->foreign('jadwal_operasi_id')->references('id')->on('jadwal_operasi');
             $table->string('waktu_mulai');
             $table->string('waktu_selesai');
             $table->boolean('status')->default(true);  //karena bisa dipesan bisa juga tidak dipesan

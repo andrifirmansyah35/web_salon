@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKeranjangLayanansTable extends Migration
+class CreateKeranjangLayananTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateKeranjangLayanansTable extends Migration
      */
     public function up()
     {
-        Schema::create('keranjang_layanans', function (Blueprint $table) {
+        Schema::create('keranjang_layanan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('layanan_id');
+            // $table->foreignId('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('user');
+            // $table->foreignId('layanan_id');
+            $table->unsignedBigInteger('layanan_id');
+            $table->foreign('layanan_id')->references('id')->on('layanan');
             $table->boolean('status');
             $table->timestamps();
         });

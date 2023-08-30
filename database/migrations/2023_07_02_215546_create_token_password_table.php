@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKeranjangOperasisTable extends Migration
+class CreateTokenPasswordTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateKeranjangOperasisTable extends Migration
      */
     public function up()
     {
-        Schema::create('keranjang_operasi', function (Blueprint $table) {
+        Schema::create('token_password', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('operasi_id');
-            $table->boolean('status')->default(false);
+            // $table->foreignId('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('user');
+            $table->string('token');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateKeranjangOperasisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('keranjang_operasi');
+        Schema::dropIfExists('token_passwords');
     }
 }

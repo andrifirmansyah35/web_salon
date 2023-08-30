@@ -81,6 +81,13 @@
                                             konfirmasi pembayaran
                                         </button>
                                     @endif
+
+                                    @if ($r['status'] == 'antri')
+                                        <button type="button" class="btn btn-danger" data-toggle="modal"
+                                            data-target="#modal-reservasi-ubah-jadwal-{{ $r['id'] }}">
+                                            ubah jadwal
+                                        </button>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -163,6 +170,25 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <a href="/reservasi_konfirmasi_pembayaran/{{ $r['id'] }}"
+                                    class="btn btn-success">Konfirmasi</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="modal-reservasi-ubah-jadwal-{{ $r['id'] }}" tabindex="-1"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">
+                                    Yakin pelangan ingin mengubah jadwal?</h5>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <a href="/reservasi_ubah_jadwal/{{ $r['id'] }}"
                                     class="btn btn-success">Konfirmasi</a>
                             </div>
                         </div>
